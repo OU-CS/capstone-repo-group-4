@@ -1,0 +1,14 @@
+@use '/public/styles/variables' as *;
+
+.layout {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+    
+  .container {
+    max-width: $content-max-width;
+    padding: $content-padding;
+    width: 100%;
+  }
+}
