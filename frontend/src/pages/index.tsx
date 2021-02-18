@@ -1,11 +1,6 @@
 import { NextPage } from 'next';
-import Nav from '../components/nav';
+import Gallery from '../templates/gallery/gallery';
 
-const Index: NextPage = () => (
-    <div>
-        <Nav />
-        <h1>Hello World!</h1>
-    </div>
-);
+const Index: NextPage = () => <Gallery />;
 
 export default Index;
