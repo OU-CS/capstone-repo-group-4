@@ -38,7 +38,7 @@ const Nav: FC = () => {
         <div className={styles.nav}>
             <div className={styles.container}>
                 <Logo />
-                    <LoginButton toggleLoginModal={toggleLoginModal} />
+                <LoginButton toggleLoginModal={toggleLoginModal} />
             </div>
 
             {/* Modals */}
