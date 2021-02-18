@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import Nav from '../components/nav';
+import Nav from '../components/nav/nav';
 
 const Index: NextPage = () => (
     <div>
