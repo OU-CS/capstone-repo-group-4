@@ -1,0 +1,29 @@
+# This action tests the environment whenever there's a PR open
+
+name: Test
+
+on:
+  pull_request:
+    paths: ['**.ts', '**.tsx', '**.js', '**.jsx']
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Check that frontend compiles
+        run: npm run build
