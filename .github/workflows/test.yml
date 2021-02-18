@@ -4,12 +4,11 @@ name: Test
 
 on:
   pull_request:
-    paths: ['**.ts', '**.tsx', '**.js', '**.jsx']
+    paths: ["**.ts", "**.tsx", "**.js", "**.jsx"]
 
 jobs:
-  test:
+  install:
     runs-on: ubuntu-18.04
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -19,8 +18,34 @@ jobs:
         with:
           node-version: 12.x
 
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies
         run: npm install
+
+  test:
+    runs-on: ubuntu-18.04
+    needs: install
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Run linter
         run: npm run lint
