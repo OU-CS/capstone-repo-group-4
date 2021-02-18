@@ -1,6 +1,6 @@
 # This action tests the environment whenever there's a PR open
 
-name: Test
+name: CI
 
 on:
   pull_request:
@@ -20,7 +20,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: node_modules
+          path: |
+            node_modules
+            frontend/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -29,9 +31,9 @@ jobs:
         run: npm install
 
       - name: Install Frontend Dependencies
-        run: npm --prefix frontend run install
+        run: npm --prefix frontend install
 
-  test:
+  lint:
     runs-on: ubuntu-18.04
     needs: install
     steps:
@@ -45,7 +47,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: node_modules
+          path: |
+            node_modules
+            frontend/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
@@ -53,5 +57,26 @@ jobs:
       - name: Run linter
         run: npm run lint
 
+  build-frontend:
+    runs-on: ubuntu-18.04
+    needs: install
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            frontend/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+          
       - name: Check that frontend compiles
         run: npm run build
