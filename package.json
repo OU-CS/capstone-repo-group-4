@@ -2,6 +2,8 @@
     "name": "roam-frontend",
     "version": "1.0.0",
     "scripts": {
+        "dev": "npm --prefix frontend run dev",
+        "build": "npm --prefix frontend run build",
         "lint": "eslint . --ext ts --ext tsx --ext js"
     },
     "devDependencies": {
