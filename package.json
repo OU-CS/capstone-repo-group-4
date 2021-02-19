@@ -4,7 +4,8 @@
     "scripts": {
         "dev": "npm --prefix frontend run dev",
         "build": "npm --prefix frontend run build",
-        "lint": "eslint . --ext ts --ext tsx --ext js"
+        "lint": "eslint . --ext ts --ext tsx --ext js",
+        "lint:fix": "eslint . --ext ts --ext tsx --ext js --fix"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.15.0",
