@@ -5,7 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext ts --ext tsx --ext js"
+    "lint": "npm --prefix ../ run lint"
   },
   "dependencies": {
     "next": "^10.0.6",

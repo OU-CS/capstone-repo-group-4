@@ -15,5 +15,14 @@ export const RegisterModal: FC<AuthModalProps> = ({ toggleLoginModal, toggleRegi
         toggleRegisterModal();
     }
 
-    return <Modal><h1 onClick={switchModal}>Register</h1></Modal>
+    return (
+        <Modal>
+            <button 
+                type="button"
+                onClick={switchModal}
+            >
+                Register
+            </button>
+        </Modal>
+    )
 };

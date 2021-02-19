@@ -2,7 +2,7 @@ import { FC } from 'react';
 import useWatchModal from '../../hooks/watch-modal';
 import { Logo } from '../logo';
 import styles from './nav.module.scss';
-import { LoginButtonProps } from './index';
+import { LoginButtonProps } from './types';
 import { RegisterModal } from '../modal/register';
 import { LoginModal } from '../modal';
 
@@ -10,12 +10,13 @@ import { LoginModal } from '../modal';
  * Button to open login modal
  */
 const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
-    <p
+    <button
+        type="button"
         onClick={toggleLoginModal}
         className={`${styles.login} small`}
     >
         Log in
-    </p>
+    </button>
 );
 
 /**
@@ -32,18 +33,18 @@ export const Nav: FC = () => {
             </div>
 
             {/* Modals */}
-            {isLoginModalOpen && 
+            {isLoginModalOpen && (
                 <LoginModal 
                     toggleLoginModal={toggleLoginModal} 
-                    toggleRegisterModal={toggleRegisterModal} 
+                    toggleRegisterModal={toggleRegisterModal}
                 />
-            }
-            {isRegisterModalOpen && 
+            )}
+            {isRegisterModalOpen && (
                 <RegisterModal 
                     toggleLoginModal={toggleLoginModal} 
                     toggleRegisterModal={toggleRegisterModal} 
                 />
-            }
+            )}
         </div>
     );
 }
