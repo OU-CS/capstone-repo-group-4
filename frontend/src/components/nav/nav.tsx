@@ -10,13 +10,13 @@ import { LoginModal } from '../modal';
  * Button to open login modal
  */
 const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
-    <button
-        type="button"
-        onClick={toggleLoginModal}
+    <a
         className={`${styles.login} small`}
+        onClick={toggleLoginModal}
+        href="#0"
     >
         Log in
-    </button>
+    </a>
 );
 
 /**
