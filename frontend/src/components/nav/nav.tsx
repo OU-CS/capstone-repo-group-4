@@ -1,3 +1,4 @@
+/* eslint-disable no-script-url */
 import { FC } from 'react';
 import useWatchModal from '../../hooks/watch-modal';
 import { Logo } from '../logo';
@@ -13,7 +14,7 @@ const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
     <a
         className={`${styles.login} small`}
         onClick={toggleLoginModal}
-        href="#0"
+        href="javascript:void(0);"
     >
         Log in
     </a>
