@@ -8,9 +8,9 @@ exports.findUserToken = async (event) => {
     // All log statements are written to CloudWatch
     console.info('received:', event);
 
-    var responseStatusCode = 400; 
-    var responseBody = "token not found";
-    if(event.userToken == 'TEST') {
+    let responseStatusCode = 400; 
+    let responseBody = "token not found";
+    if(event.userToken === 'TEST') {
         responseStatusCode = 200;
         responseBody = "token found"
     }
