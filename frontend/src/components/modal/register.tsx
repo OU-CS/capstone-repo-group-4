@@ -3,7 +3,7 @@ import { FaTimes } from 'react-icons/fa';
 import { TextField } from "../inputs/text-field";
 import { Modal } from "./modal";
 import { AuthModalProps } from "./types";
-import styles from './register.module.scss';
+import styles from './auth.module.scss';
 import { Button, CasualButton } from "../inputs/button";
 
 /**

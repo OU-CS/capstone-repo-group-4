@@ -1,5 +1,6 @@
 @use '/public/styles/variables' as *;
 
+.login,
 .register {
   padding: 0 30px;
 
@@ -59,6 +60,14 @@
       * {
         width: fit-content;
       }
+    }
+  }
+}
+
+.login {
+  :global(.textField) {
+    span {
+      display: none;
     }
   }
 }
