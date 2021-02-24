@@ -1,0 +1,52 @@
+@use '/public/styles/variables' as *;
+
+.register {
+  padding: 0 30px;
+
+  :global(.modalContainer),
+  form {
+    display: flex;
+    flex-flow: column;
+    max-width: 400px;
+    row-gap: 14px;
+    width: 100%;
+
+    .name {
+      column-gap: 14px;
+      display: flex;
+      
+      :global(.textField) {
+        flex-flow: column;
+        row-gap: normal;
+        width: 50%;
+      }
+    }
+
+    :global(.button) {
+      margin-top: 6px;
+    }
+
+    .footer {
+      align-items: center;
+      display: flex;
+      flex-flow: column;
+      font-size: 14px;
+      row-gap: 14px;
+
+      button {
+        span {
+          color: $blue;
+          padding: 5px;
+
+          &:hover {
+            color: $blue-shade;
+          }
+        }
+      }
+
+      * {
+        width: fit-content;
+      }
+    }
+  }
+}

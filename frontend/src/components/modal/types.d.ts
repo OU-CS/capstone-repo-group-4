@@ -1,4 +1,8 @@
 export interface AuthModalProps {
-    toggleLoginModal: () => void;
-    toggleRegisterModal: () => void;
+    switchModal: () => void;
+    closeModal: () => void;
+}
+
+export interface ModalProps {
+    style: string;
 }

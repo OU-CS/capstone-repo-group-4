@@ -6,18 +6,18 @@ import styles from './nav.module.scss';
 import { LoginButtonProps } from './types';
 import { RegisterModal } from '../modal/register';
 import { LoginModal } from '../modal';
+import { CasualButton } from '../inputs';
 
 /**
  * Button to open login modal
  */
 const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
-    <a
-        className={`${styles.login} small`}
+    <CasualButton 
+        className={styles.login}
         onClick={toggleLoginModal}
-        href="javascript:void(0);"
     >
         Log in
-    </a>
+    </CasualButton>
 );
 
 /**
@@ -26,6 +26,15 @@ const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
 export const Nav: FC = () => {
     const [toggleLoginModal, isLoginModalOpen] = useWatchModal();
     const [toggleRegisterModal, isRegisterModalOpen] = useWatchModal();
+
+    /**
+     * Switches between login modal and register modal
+     */
+    const switchModal = () => {
+        toggleLoginModal();
+        toggleRegisterModal();
+    }
+
     return (
         <div className={styles.nav}>
             <div className={styles.container}>
@@ -36,14 +45,14 @@ export const Nav: FC = () => {
             {/* Modals */}
             {isLoginModalOpen && (
                 <LoginModal 
-                    toggleLoginModal={toggleLoginModal} 
-                    toggleRegisterModal={toggleRegisterModal}
+                    closeModal={toggleLoginModal}
+                    switchModal={switchModal} 
                 />
             )}
             {isRegisterModalOpen && (
                 <RegisterModal 
-                    toggleLoginModal={toggleLoginModal} 
-                    toggleRegisterModal={toggleRegisterModal} 
+                    closeModal={toggleRegisterModal}
+                    switchModal={switchModal} 
                 />
             )}
         </div>
