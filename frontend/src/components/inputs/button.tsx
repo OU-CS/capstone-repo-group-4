@@ -18,8 +18,9 @@ export const Button: FC<ButtonProps> = ({ children, onClick, submit }) => (
  */
 export const CasualButton: FC<ButtonProps> = ({ children, onClick, className }) => {
     
-    const onClickWrapper = (e) => {
-        e.target.blur();
+    const onClickWrapper = (e: React.MouseEvent) => {
+        const target = e.target as HTMLElement;
+        target.blur();
         if(onClick) {
             onClick();
         }
