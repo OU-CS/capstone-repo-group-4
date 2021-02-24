@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { FaTimes } from 'react-icons/fa';
 import { TextField } from "../inputs/text-field";
 import { Modal } from "./modal";
 import { AuthModalProps } from "./types";
@@ -33,7 +34,12 @@ export const RegisterModal: FC<AuthModalProps> = ({ switchModal, closeModal }) =
 
     return (
         <Modal style={styles.register}>
-            <h3>Create an account</h3>
+            <div className={styles.header}>
+                <h3>Create an account</h3>
+                <CasualButton onClick={closeModal}>
+                    <FaTimes />
+                </CasualButton>
+            </div>
             <form onSubmit={onRegister}>
                 <div className={styles.name}>
                     <TextField 

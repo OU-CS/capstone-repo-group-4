@@ -20,6 +20,10 @@
   border: 0;
   color: $blue;
   cursor: pointer;
+  
+  * {
+    cursor: pointer;
+  }
 
   &:active {
     outline: none;

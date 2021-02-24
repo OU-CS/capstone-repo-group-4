@@ -18,7 +18,7 @@ export const TextField: FC<TextFieldProps> = ({ title, required, password, state
                 {title}
                 {required && <span className={styles.required}>*</span>}
             </p>
-            <input value={value} onChange={handleChange} type={password ? 'password' : 'text'} />
+            <input required={required} value={value} onChange={handleChange} type={password ? 'password' : 'text'} />
         </div>
     );
 }

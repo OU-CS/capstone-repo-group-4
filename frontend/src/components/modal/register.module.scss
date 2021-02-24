@@ -11,6 +11,18 @@
     row-gap: 14px;
     width: 100%;
 
+    .header {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+
+      button {
+        font-size: 18px;
+        height: 24px;
+        padding: 3px;
+      }
+    }
+
     .name {
       column-gap: 14px;
       display: flex;
