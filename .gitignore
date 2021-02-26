@@ -50,3 +50,6 @@ frontend/amplify-build-config.json
 frontend/amplify-gradle-config.json
 frontend/amplifytools.xcconfig
 frontend/.secret-*
+
+# aws
+**/.aws-sam
