@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "npm --prefix ../ run lint",
-    "lint:fix": "npm --prefix ../ run lint:fix"
+    "lint:fix": "npm --prefix ../ run lint:fix",
+    "deploy": "amplify publish"
   },
   "dependencies": {
     "next": "^10.0.6",
