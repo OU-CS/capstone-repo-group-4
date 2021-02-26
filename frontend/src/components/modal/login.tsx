@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import { FaTimes } from "react-icons/fa";
+import { Auth } from 'aws-amplify';
 import { Modal } from "./modal";
 import { AuthModalProps } from "./types";
 import styles from './auth.module.scss';
@@ -19,6 +20,14 @@ export const LoginModal: FC<AuthModalProps> = ({ switchModal, closeModal }) =>
     const onLogin = () => {
         const [email] = emailState;
         const [password] = passwordState;
+
+        Auth.signIn({
+            username: 'sfletchertx@gmail.com',
+            password: 'password'
+        })
+
+        // console.log(appConfig.COGNITO_CLIENT_ID);
+        
 
         console.log(email);
         console.log(password);

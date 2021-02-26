@@ -1,23 +1,35 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-roam-dev-190358-authRole",
-            "UnauthRoleArn": "arn:aws:iam::678336594848:role/amplify-roam-dev-190358-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::678336594848:role/amplify-roam-dev-190358-authRole",
-            "Region": "us-east-2",
-            "DeploymentBucketName": "amplify-roam-dev-190358-deployment",
-            "UnauthRoleName": "amplify-roam-dev-190358-unauthRole",
-            "StackName": "amplify-roam-dev-190358",
-            "StackId": "arn:aws:cloudformation:us-east-2:678336594848:stack/amplify-roam-dev-190358/8445fe40-77ce-11eb-8f3b-0a196f208d44",
-            "AmplifyAppId": "d2smznw84oy1yz"
-        },
-        "categories": {
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d2smznw84oy1yz",
-                    "type": "manual"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-roam-dev-190358-authRole",
+      "UnauthRoleArn": "arn:aws:iam::678336594848:role/amplify-roam-dev-190358-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::678336594848:role/amplify-roam-dev-190358-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-roam-dev-190358-deployment",
+      "UnauthRoleName": "amplify-roam-dev-190358-unauthRole",
+      "StackName": "amplify-roam-dev-190358",
+      "StackId": "arn:aws:cloudformation:us-east-2:678336594848:stack/amplify-roam-dev-190358/8445fe40-77ce-11eb-8f3b-0a196f208d44",
+      "AmplifyAppId": "d2smznw84oy1yz"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2smznw84oy1yz",
+          "type": "manual"
         }
+      },
+      "function": {
+        "roamc79e6578CustomMessage": {
+          "REDIRECTURL": "https://localhost:3000",
+          "EMAILSUBJECT": "Roam verification code",
+          "EMAILMESSAGE": "Please follow the link below to complete the registration process",
+          "deploymentBucketName": "amplify-roam-dev-190358-deployment",
+          "s3Key": "amplify-builds/roamc79e6578CustomMessage-4379745a77786b54434a-build.zip"
+        }
+      },
+      "auth": {
+        "roamc79e6578": {}
+      }
     }
+  }
 }
