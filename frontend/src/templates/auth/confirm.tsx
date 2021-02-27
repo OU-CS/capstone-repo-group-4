@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/dist/client/router';
-import { Layout } from '../../components/layout';
+import { Layout } from '../../components';
 
 type QueryParameters = {
     email: string;

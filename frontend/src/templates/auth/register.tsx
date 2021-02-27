@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import Link from 'next/link';
+import { Auth } from 'aws-amplify';
 import { TextField , Button , Layout } from '../../components';
 import styles from './auth.module.scss';
 
@@ -15,16 +16,26 @@ export const Register: FC = () => {
     /**
      * Handle creating an account
      */
-    const onRegister = () => {
+    const onRegister = async () => {
         const [firstName] = firstNameState;
         const [lastName] = lastNameState;
         const [email] = emailState;
         const [password] = passwordState;
 
-        console.log(firstName);
-        console.log(lastName);
-        console.log(email);
-        console.log(password);
+        try {
+            const { user } = await Auth.signUp({
+                username: email,
+                password,
+                attributes: {
+                    given_name: firstName,
+                    family_name: lastName
+                }
+            });
+
+            console.log('User created:', user);
+        } catch (error) {
+            console.error('Error signing up:', error);
+        }
     }
 
     return (
