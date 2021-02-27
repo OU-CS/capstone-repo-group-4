@@ -17,47 +17,21 @@
     .name {
       column-gap: 14px;
       display: flex;
-      
-      :global(.textField) {
-        flex-flow: column;
-        row-gap: normal;
-        width: 50%;
-      }
     }
 
-    :global(.button) {
-      margin-top: 6px;
+    .button {
+      margin: 6px 0;
     }
 
     .footer {
       align-items: center;
       display: flex;
       flex-flow: column;
-      font-size: 14px;
       row-gap: 14px;
-
-      button {
-        span {
-          color: $blue;
-          padding: 5px;
-
-          &:hover {
-            color: $blue-shade;
-          }
-        }
-      }
 
       * {
         width: fit-content;
       }
-    }
-  }
-}
-
-.login {
-  :global(.textField) {
-    span {
-      display: none;
     }
   }
 }

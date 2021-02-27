@@ -2,5 +2,9 @@
 
 .logo {
   color: $blue;
-  font-weight: bold;
+  transition: 250ms;
+
+  &:hover {
+    color: $blue-shade;
+  }
 }

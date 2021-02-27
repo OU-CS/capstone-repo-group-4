@@ -1,6 +1,7 @@
-import { FC, useState } from 'react';
-import Link from 'next/link';
-import { TextField , Button , Layout } from '../../components';
+import { FC, FormEvent, useState } from 'react';
+import NextLink from 'next/link';
+import { Heading, Button, Link } from "@chakra-ui/react"
+import { Input , Layout, PasswordInput } from '../../components';
 import styles from './auth.module.scss';
 
 /**
@@ -15,7 +16,8 @@ export const Register: FC = () => {
     /**
      * Handle creating an account
      */
-    const onRegister = () => {
+    const onRegister = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const [firstName] = firstNameState;
         const [lastName] = lastNameState;
         const [email] = emailState;
@@ -31,38 +33,35 @@ export const Register: FC = () => {
         <Layout>
             <div className={styles.register}>
                 <div className={styles.container}>
-                    <h2>Create an account</h2>
+                    <Heading size="lg">Create an account</Heading>
                     <form onSubmit={onRegister}>
                         <div className={styles.name}>
-                            <TextField 
-                                state={firstNameState}
-                                required
-                                title="First Name"
-                            />
-                            <TextField 
-                                state={lastNameState}
-                                required
-                                title="Last Name"
-                            />
+                            <Input isRequired placeholder="First name" state={firstNameState} />
+                            <Input isRequired placeholder="Last name" state={lastNameState} />
                         </div>
-                        <TextField 
+                        <Input 
+                            isRequired
+                            placeholder="Email address"
                             state={emailState}
-                            required
-                            title="Email address"
                         />
-                        <TextField 
+                        <PasswordInput 
+                            isRequired
+                            placeholder="Password"
                             state={passwordState}
-                            required
-                            password
-                            title="Password"
                         />
-                        <Button submit>Create account</Button>
+                        <Button 
+                            className={styles.button}
+                            colorScheme="blue"
+                            type="submit"
+                        >
+                            Create account
+                        </Button>
                     </form>
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
-                        <Link href="/login">
-                            <a>Log in</a>
-                        </Link>
+                        <NextLink href="/login">
+                            <Link>Log in</Link>
+                        </NextLink>
                     </div>
                 </div>
             </div>

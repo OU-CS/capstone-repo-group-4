@@ -1,7 +1,8 @@
-import { FC, useState } from "react";
-import Link from "next/link";
+import { FC, FormEvent, useState } from "react";
+import NextLink from "next/link";
+import { Heading, Link, Button } from "@chakra-ui/react";
 import styles from './auth.module.scss';
-import { Button, TextField , Layout } from "../../components";
+import { Input, Layout, PasswordInput } from "../../components";
 
 /**
  * Modal to register
@@ -14,7 +15,8 @@ export const Login: FC = () =>
     /**
      * Handle creating an account
      */
-    const onLogin = () => {
+    const onLogin = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         const [email] = emailState;
         const [password] = passwordState;
 
@@ -27,26 +29,17 @@ export const Login: FC = () =>
         <Layout>
             <div className={styles.login}>
                 <div className={styles.container}>
-                    <h2>Login</h2>
+                    <Heading size="lg">Login</Heading>
                     <form onSubmit={onLogin}>
-                        <TextField
-                            state={emailState}
-                            required
-                            title="Email address"
-                        />
-                        <TextField 
-                            state={passwordState}
-                            required
-                            password
-                            title="Password"
-                        /> 
-                        <Button submit>Log in</Button>
+                        <Input isRequired placeholder="Email address" state={emailState} />
+                        <PasswordInput isRequired placeholder="Password" state={passwordState} /> 
+                        <Button colorScheme="blue" type="submit">Log in</Button>
                     </form>
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
-                        <Link href="/register">
-                            <a>Create an account</a>
-                        </Link>
+                        <NextLink href="/register">
+                            <Link>Create an account</Link>
+                        </NextLink>
                     </div>
                 </div>
             </div>
