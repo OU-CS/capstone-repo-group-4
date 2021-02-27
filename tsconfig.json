@@ -10,9 +10,6 @@
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noUncheckedIndexedAccess": true,
-    "removeComments": true,
-    "sourceMap": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -25,12 +22,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js",
-    "next.config.js",
-    "jest.config.js",
-    ".eslintrc.js"
+    "**/*.js"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "frontend/node_modules",
+    "backend/node_modules"
   ]
 }
