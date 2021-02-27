@@ -4,7 +4,6 @@ import useWatchModal from '../../hooks/watch-modal';
 import { Logo } from '../logo';
 import styles from './nav.module.scss';
 import { LoginButtonProps } from './types';
-import { RegisterModal } from '../modal/register';
 import { LoginModal } from '../modal';
 import { CasualButton } from '../inputs';
 
@@ -25,14 +24,12 @@ const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
  */
 export const Nav: FC = () => {
     const [toggleLoginModal, isLoginModalOpen] = useWatchModal();
-    const [toggleRegisterModal, isRegisterModalOpen] = useWatchModal();
 
     /**
      * Switches between login modal and register modal
      */
     const switchModal = () => {
         toggleLoginModal();
-        toggleRegisterModal();
     }
 
     return (
@@ -46,12 +43,6 @@ export const Nav: FC = () => {
             {isLoginModalOpen && (
                 <LoginModal 
                     closeModal={toggleLoginModal}
-                    switchModal={switchModal} 
-                />
-            )}
-            {isRegisterModalOpen && (
-                <RegisterModal 
-                    closeModal={toggleRegisterModal}
                     switchModal={switchModal} 
                 />
             )}
