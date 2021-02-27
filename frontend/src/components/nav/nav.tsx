@@ -1,5 +1,7 @@
 /* eslint-disable no-script-url */
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { Auth } from 'aws-amplify';
+import {CognitoUserSession} from 'amazon-cognito-identity-js';
 import useWatchModal from '../../hooks/watch-modal';
 import { Logo } from '../logo';
 import styles from './nav.module.scss';
@@ -20,12 +22,27 @@ const LoginButton: FC<LoginButtonProps> = ({ toggleLoginModal }) => (
     </CasualButton>
 );
 
+type User = {
+    given_name: string;
+}
+
 /**
  * Navigation bar
  */
 export const Nav: FC = () => {
     const [toggleLoginModal, isLoginModalOpen] = useWatchModal();
     const [toggleRegisterModal, isRegisterModalOpen] = useWatchModal();
+    const [user, setUser] = useState<boolean | User>();
+
+    useEffect(() => {
+        Auth.currentUserInfo().then((val) => {
+            if(val && val.attributes) {
+                setUser(val.attributes);
+            } else {
+                setUser(false);
+            }
+        });
+    }, [])
 
     /**
      * Switches between login modal and register modal
@@ -35,11 +52,21 @@ export const Nav: FC = () => {
         toggleRegisterModal();
     }
 
+    if(user === undefined) {
+        return <p>Loading...</p>;
+    }
+
     return (
         <div className={styles.nav}>
             <div className={styles.container}>
                 <Logo />
-                <LoginButton toggleLoginModal={toggleLoginModal} />
+                {user ? (
+                    <p>
+                        Hi,
+                        {' '}
+                        {user.given_name}
+                    </p>
+                ) : <LoginButton toggleLoginModal={toggleLoginModal} />}
             </div>
 
             {/* Modals */}

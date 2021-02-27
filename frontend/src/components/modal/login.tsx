@@ -17,22 +17,27 @@ export const LoginModal: FC<AuthModalProps> = ({ switchModal, closeModal }) =>
     /**
      * Handle creating an account
      */
-    const onLogin = () => {
+    const onLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         const [email] = emailState;
         const [password] = passwordState;
 
-        Auth.signIn({
-            username: 'sfletchertx@gmail.com',
-            password: 'password'
-        })
+        try {
+            const user = await Auth.signIn({
+                username: email,
+                password
+            });
 
-        // console.log(appConfig.COGNITO_CLIENT_ID);
-        
+            console.log(user);
+
+            closeModal();
+        } catch (error) {
+            console.log(error);
+        }
 
         console.log(email);
         console.log(password);
-        
-        closeModal();
     }
 
 
