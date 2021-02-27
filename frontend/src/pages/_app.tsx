@@ -2,7 +2,7 @@
 import React from 'react';
 import { AppProps } from 'next/app';
 import '../../public/styles/global.scss'
-import { Nav } from '../components/nav';
+import { Nav } from '../components';
 
 const NextApp = ({ Component, pageProps }: AppProps): JSX.Element => (
     <>
