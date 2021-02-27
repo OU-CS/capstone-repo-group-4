@@ -1,9 +1,11 @@
 @use '/public/styles/variables' as *;
 
 .register {
-  padding: 0 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 
-  :global(.modalContainer),
+  .container,
   form {
     display: flex;
     flex-flow: column;
@@ -15,12 +17,6 @@
       align-items: center;
       display: flex;
       justify-content: space-between;
-
-      button {
-        font-size: 18px;
-        height: 24px;
-        padding: 3px;
-      }
     }
 
     .name {
