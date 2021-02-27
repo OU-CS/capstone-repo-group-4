@@ -3,11 +3,11 @@ import React from 'react';
 import { AppProps } from 'next/app';
 import '../../public/styles/global.scss'
 import Amplify from 'aws-amplify';
-import { Nav } from '../components/nav';
-import awsconfig from '../aws-exports';
+import { Nav } from '../components';
+import awsConfig from '../aws-exports';
 
 // Configure Amplify authentication
-Amplify.configure(awsconfig);
+Amplify.configure(awsConfig);
 
 const NextApp = ({ Component, pageProps }: AppProps): JSX.Element => (
     <>

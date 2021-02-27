@@ -19,7 +19,9 @@
     width: 100%;
 
     .login {
+      align-items: center;
       color: $black;
+      display: flex;
       font-size: 14px;
       height: 100%;
       margin-right: -12px;

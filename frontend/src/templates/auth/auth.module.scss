@@ -2,27 +2,17 @@
 
 .login,
 .register {
-  padding: 0 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 
-  :global(.modalContainer),
+  .container,
   form {
     display: flex;
     flex-flow: column;
     max-width: 400px;
     row-gap: 14px;
     width: 100%;
-
-    .header {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-
-      button {
-        font-size: 18px;
-        height: 24px;
-        padding: 3px;
-      }
-    }
 
     .name {
       column-gap: 14px;
