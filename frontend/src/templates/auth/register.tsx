@@ -1,7 +1,8 @@
 import { FC, FormEvent, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import NextLink from 'next/link';
-import { Heading, Button, Link } from "@chakra-ui/react"
+import { Heading, Button, Link, Alert } from "@chakra-ui/react"
+import { useRouter } from 'next/dist/client/router';
 import { Layout , Input, PasswordInput } from '../../components';
 
 import styles from './auth.module.scss';
@@ -15,6 +16,11 @@ export const Register: FC = () => {
     const emailState = useState('');
     const passwordState = useState('');
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+    
+    const router = useRouter();
+
     /**
      * Handle creating an account
      */
@@ -25,8 +31,10 @@ export const Register: FC = () => {
         const [email] = emailState;
         const [password] = passwordState;
 
+        setLoading(true);
+
         try {
-            const { user } = await Auth.signUp({
+            await Auth.signUp({
                 username: email,
                 password,
                 attributes: {
@@ -35,9 +43,10 @@ export const Register: FC = () => {
                 }
             });
 
-            console.log('User created:', user);
-        } catch (error) {
-            console.error('Error signing up:', error);
+            router.push('/');
+        } catch (e) {
+            setLoading(false);
+            setError(e.message);
         }
     }
 
@@ -61,7 +70,9 @@ export const Register: FC = () => {
                             placeholder="Password"
                             state={passwordState}
                         />
+                        {error && <Alert status="error">{error}</Alert>}
                         <Button 
+                            isLoading={loading}
                             className={styles.button}
                             colorScheme="blue"
                             type="submit"
