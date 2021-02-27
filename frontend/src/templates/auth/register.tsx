@@ -1,9 +1,7 @@
 import { FC, useState } from 'react';
 import Link from 'next/link';
-import { TextField } from '../../components/inputs/text-field';
-import styles from './register.module.scss';
-import { Button } from '../../components/inputs/button';
-import { Layout } from '../../components/layout';
+import { TextField , Button , Layout } from '../../components';
+import styles from './auth.module.scss';
 
 /**
  * Modal to register
@@ -62,7 +60,7 @@ export const Register: FC = () => {
                     </form>
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
-                        <Link href="/">
+                        <Link href="/login">
                             <a>Log in</a>
                         </Link>
                     </div>

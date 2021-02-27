@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { Register } from '../templates/register/register';
+import { Register } from '../templates/auth/register';
 
 const NextRegister: NextPage = () => <Register />;
 

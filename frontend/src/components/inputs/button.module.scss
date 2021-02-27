@@ -29,4 +29,8 @@
   &:active {
     outline: none;
   }
+
+  &:hover {
+    color: $blue-shade;
+  }
 }

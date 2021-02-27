@@ -1,6 +1,12 @@
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
 import styles from './text-field.module.scss';
-import { TextFieldProps } from './types';
+
+export interface TextFieldProps {
+    title: string;
+    state: [string, Dispatch<SetStateAction<string>>];
+    required?: boolean;
+    password?: boolean;
+}
 
 export const TextField: FC<TextFieldProps> = ({ title, required, password, state }) =>  {
     const [value, setValue] = state;

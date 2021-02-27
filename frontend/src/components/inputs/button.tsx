@@ -1,6 +1,11 @@
 import { FC } from 'react';
 import styles from './button.module.scss';
-import { ButtonProps } from './types';
+
+export interface ButtonProps {
+    onClick?: () => void;
+    submit?: boolean;
+    className?: string;
+}
 
 export const Button: FC<ButtonProps> = ({ children, onClick, submit }) => (
     <button 
