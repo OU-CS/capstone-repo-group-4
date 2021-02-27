@@ -14,13 +14,19 @@
   width: 100vw;
   z-index: 100;
 
+  * {
+    cursor: auto;
+  }
+
+  a,
+  button {
+    cursor: pointer;
+  }
+
   .container {
-    align-items: center;
     background: white;
     border-radius: $border-radius;
     cursor: default;
-    display: flex;
-    justify-content: space-between;
     padding: 40px;
   }
 }

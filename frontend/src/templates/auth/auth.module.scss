@@ -1,0 +1,37 @@
+@use '/public/styles/variables' as *;
+
+.login,
+.register {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+
+  .container,
+  form {
+    display: flex;
+    flex-flow: column;
+    max-width: 400px;
+    row-gap: 14px;
+    width: 100%;
+
+    .name {
+      column-gap: 14px;
+      display: flex;
+    }
+
+    .button {
+      margin: 6px 0;
+    }
+
+    .footer {
+      align-items: center;
+      display: flex;
+      flex-flow: column;
+      row-gap: 14px;
+
+      * {
+        width: fit-content;
+      }
+    }
+  }
+}
