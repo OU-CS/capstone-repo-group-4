@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import { AppProps } from 'next/app';
-import '../../public/styles/global.scss'
 import Amplify from 'aws-amplify';
+import { ChakraProvider } from "@chakra-ui/react"
+import theme from '../../public/styles/theme'
 import { Nav } from '../components';
 import awsConfig from '../aws-exports';
 
@@ -10,10 +11,10 @@ import awsConfig from '../aws-exports';
 Amplify.configure(awsConfig);
 
 const NextApp = ({ Component, pageProps }: AppProps): JSX.Element => (
-    <>
+    <ChakraProvider theme={theme}>
         <Nav />
         <Component {...pageProps} />
-    </>
+    </ChakraProvider>
 );
 
 export default NextApp;

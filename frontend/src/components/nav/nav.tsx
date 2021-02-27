@@ -1,6 +1,7 @@
 /* eslint-disable no-script-url */
 import { FC } from 'react';
 import Link from 'next/link';
+import { Button } from '@chakra-ui/react';
 import { Logo } from '../logo/logo';
 import styles from './nav.module.scss';
 
@@ -9,7 +10,7 @@ import styles from './nav.module.scss';
  */
 const LoginButton: FC = () => (
     <Link href="/login">
-        <a className={styles.login}>Log in</a>
+        <Button height="8">Log in</Button>
     </Link>
 );
 

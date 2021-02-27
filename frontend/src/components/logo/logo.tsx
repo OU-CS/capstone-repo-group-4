@@ -1,8 +1,9 @@
 import { FC } from 'react';
+import { Heading } from '@chakra-ui/react';
 import styles from './logo.module.scss';
 
 export const Logo: FC = () => (
-    <h2 className={styles.logo}>
+    <Heading size="lg" className={styles.logo}>
         Roam
-    </h2>
+    </Heading>
 );
