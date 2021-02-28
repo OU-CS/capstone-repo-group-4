@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "npm --prefix ../ run lint",
     "lint:fix": "npm --prefix ../ run lint:fix",
-    "deploy": "amplify publish"
+    "deploy": "npm run build && amplify publish"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.3.3",
