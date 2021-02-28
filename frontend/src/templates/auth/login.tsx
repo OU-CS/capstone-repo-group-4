@@ -38,8 +38,7 @@ export const Login: FC = () => {
         }
     }
 
-
-    return(
+    return (
         <Layout>
             <div className={styles.login}>
                 <div className={styles.container}>

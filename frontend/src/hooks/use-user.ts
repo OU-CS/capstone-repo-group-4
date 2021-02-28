@@ -1,5 +1,7 @@
-import { withSSRContext } from "aws-amplify";
-import { GetServerSidePropsContext } from "next";
+import { Auth } from "aws-amplify";
+import { useEffect } from "react";
+import Router from "next/router";
+import useSWR from 'swr';
 
 export type User = {
     id: string,
@@ -25,20 +27,36 @@ export const mapCognitoToUser = (data: any) => {
     return user;
 }
 
-type Response = {
-    props: {
-        user?: User
-    }
+export const getUser = async () => {
+    const user = await Auth.currentAuthenticatedUser();
+    return user;
 }
 
-export const userServerSideProps = async (context: GetServerSidePropsContext): Promise<Response> => {
-    try {
-        const { Auth } = withSSRContext(context);
-        const user = await Auth.currentAuthenticatedUser();
-        return {
-            props: { user: mapCognitoToUser(user) }
-        } 
-    } catch(e) {
-        return { props: { } }
+type Response = {
+    loading: boolean, 
+    user?: User
+};
+
+/**
+ * Gets current authenticated user from user pool
+ */
+export const useUser = (): Response => {
+    const { data, error } = useSWR('/', getUser);
+
+    // We haven't received any data or errors 
+    // yet, we're still loading.
+    if(data === undefined && error === undefined) {
+        return { loading: true };
     }
+
+    // We have data, return to user
+    if(data) {
+        const user = mapCognitoToUser(data);
+        return { loading: false, user };
+
+    }
+
+    // No data was found
+    return { loading: false };
+
 }

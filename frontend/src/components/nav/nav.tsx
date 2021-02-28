@@ -1,12 +1,12 @@
 /* eslint-disable no-script-url */
 import { FC } from 'react';
 import Link from 'next/link';
-import { Button } from '@chakra-ui/react';
+import { Button, Skeleton } from '@chakra-ui/react';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import { Logo } from '../logo/logo';
 import styles from './nav.module.scss';
-import { UserProps } from '../../hooks/use-user';
+import { UserProps, useUser } from '../../hooks/use-user';
 
 /**
  * Button to open login modal
@@ -31,21 +31,29 @@ const UserProfile: FC<Required<UserProps>> = ({ user }) => {
         router.reload();
     }
 
-    return(
-        <Button onClick={logOut} height="8">
-            {`${user.firstName} ${user.lastName}`}
-        </Button>
+    return (
+        <Skeleton isLoaded={!!user}>
+            <Button onClick={logOut} height="8">
+                {user.firstName}
+            </Button>
+        </Skeleton>
     );
 }
 
 /**
  * Navigation bar
  */
-export const Nav: FC<UserProps> = ({ user }) => (
-    <div className={styles.nav}>
-        <div className={styles.container}>
-            <Link href="/"><a><Logo /></a></Link>
-            {user ? <UserProfile user={user} /> : <LoginButton />}
+export const Nav: FC = () => {
+    const { loading, user } = useUser();
+
+    return(
+        <div className={styles.nav}>
+            <div className={styles.container}>
+                <Link href="/"><a><Logo /></a></Link>
+                <Skeleton isLoaded={!loading}>
+                    {user ? <UserProfile user={user} /> : <LoginButton />}
+                </Skeleton>
+            </div>
         </div>
-    </div>
-)
+    );
+}
