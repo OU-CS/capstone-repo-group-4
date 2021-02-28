@@ -1,6 +1,4 @@
 import { Auth } from "aws-amplify";
-import { useEffect } from "react";
-import Router from "next/router";
 import useSWR from 'swr';
 
 export type User = {
