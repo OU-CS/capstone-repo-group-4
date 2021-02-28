@@ -1,7 +1,8 @@
 /* eslint-disable no-script-url */
 import { FC } from 'react';
 import Link from 'next/link';
-import { Button, Skeleton } from '@chakra-ui/react';
+import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton } from '@chakra-ui/react';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import { Logo } from '../logo/logo';
@@ -33,9 +34,14 @@ const UserProfile: FC<Required<UserProps>> = ({ user }) => {
 
     return (
         <Skeleton isLoaded={!!user}>
-            <Button onClick={logOut} height="8">
-                {user.firstName}
-            </Button>
+            <Menu>
+                <MenuButton as={Button} height="8" rightIcon={<ChevronDownIcon />}>
+                    {user.firstName}
+                </MenuButton>
+                <MenuList>
+                    <MenuItem onClick={logOut}>Log out</MenuItem>
+                </MenuList>
+            </Menu>
         </Skeleton>
     );
 }
