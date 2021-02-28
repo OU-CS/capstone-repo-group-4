@@ -5,13 +5,11 @@ import { Login } from '../templates/auth/login';
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const { Auth } = withSSRContext(context);
-        const user = await Auth.currentAuthenticatedUser();
-        if(user) {        
-            return {
-                redirect: {
-                    destination: '/',
-                    permanent: true,
-                }
+        await Auth.currentAuthenticatedUser();
+        return {
+            redirect: {
+                destination: '/',
+                permanent: true,
             }
         } 
     } catch(e) {
@@ -19,10 +17,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             props: {}
         }
     }
-
-    return {
-        props: {}
-    }    
 }
 
 const NextLogin: NextPage = () => <Login />;
