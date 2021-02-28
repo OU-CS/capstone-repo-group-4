@@ -53,3 +53,5 @@ frontend/.secret-*
 
 # aws
 **/.aws-sam
+frontend/.serverless
+frontend/.serverless_nextjs

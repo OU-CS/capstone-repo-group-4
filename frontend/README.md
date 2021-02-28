@@ -18,10 +18,10 @@ npm run dev
 
 ## Deployment
 
-Install Amplify CLI globally
+Install Serverless globally
 
 ```bash
-npm install -g @aws-amplify/cli
+npm install -g serverless
 ```
 
 Navigate into the frontend directory
@@ -30,7 +30,7 @@ Navigate into the frontend directory
 cd frontend
 ```
 
-Deploy to Amplify
+Deploy to CloudFront
 
 ```bash
 npm run deploy
