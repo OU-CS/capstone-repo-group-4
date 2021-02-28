@@ -1,4 +1,5 @@
 import { NextPage, GetServerSideProps } from 'next';
+import { Nav } from '../components';
 import { userServerSideProps } from '../hooks/use-user';
 import { Register } from '../templates/auth/register';
 
@@ -17,6 +18,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 
-const NextRegister: NextPage = () => <Register />;
+const NextRegister: NextPage = () => (
+    <>
+        <Nav />
+        <Register />
+    </>
+);
 
 export default NextRegister;
