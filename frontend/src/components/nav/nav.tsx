@@ -6,7 +6,7 @@ import { Auth } from 'aws-amplify';
 import { useRouter } from 'next/router';
 import { Logo } from '../logo/logo';
 import styles from './nav.module.scss';
-import { User, useUser } from '../../hooks/use-user';
+import { UserProps } from '../../hooks/use-user';
 
 /**
  * Button to open login modal
@@ -17,14 +17,10 @@ const LoginButton: FC = () => (
     </Link>
 );
 
-type UserProfileProps = {
-    user: User;
-}
-
 /**
  * Component when user is logged in
  */
-const UserProfile: FC<UserProfileProps> = ({ user }) => {
+const UserProfile: FC<Required<UserProps>> = ({ user }) => {
     const router = useRouter();
     
     /**
@@ -45,15 +41,11 @@ const UserProfile: FC<UserProfileProps> = ({ user }) => {
 /**
  * Navigation bar
  */
-export const Nav: FC = () => {
-    const user = useUser();
-    
-    return(
-        <div className={styles.nav}>
-            <div className={styles.container}>
-                <Link href="/"><a><Logo /></a></Link>
-                {user ? <UserProfile user={user} /> : <LoginButton />}
-            </div>
+export const Nav: FC<UserProps> = ({ user }) => (
+    <div className={styles.nav}>
+        <div className={styles.container}>
+            <Link href="/"><a><Logo /></a></Link>
+            {user ? <UserProfile user={user} /> : <LoginButton />}
         </div>
-    )
-}
+    </div>
+)

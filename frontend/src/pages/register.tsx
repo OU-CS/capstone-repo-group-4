@@ -1,23 +1,21 @@
 import { NextPage, GetServerSideProps } from 'next';
-import { withSSRContext } from 'aws-amplify';
+import { userServerSideProps } from '../hooks/use-user';
 import { Register } from '../templates/auth/register';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    try {
-        const { Auth } = withSSRContext(context);
-        await Auth.currentAuthenticatedUser();
+    const res = await userServerSideProps(context);
+    if(res.props.user) {
         return {
             redirect: {
                 destination: '/',
                 permanent: true,
             }
-        } 
-    } catch(e) {
-        return {
-            props: {}
         }
     }
+
+    return { props: { } }
 }
+
 
 const NextRegister: NextPage = () => <Register />;
 
