@@ -59,7 +59,7 @@ export const Login: FC = () => {
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
                         <NextLink href="/register">
-                            <Link>Create an account</Link>
+                            <Link tabIndex={0}>Create an account</Link>
                         </NextLink>
                     </div>
                 </div>

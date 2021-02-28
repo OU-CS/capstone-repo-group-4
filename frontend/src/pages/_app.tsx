@@ -8,7 +8,7 @@ import { Nav } from '../components';
 import awsConfig from '../aws-exports';
 
 // Configure Amplify authentication
-Amplify.configure(awsConfig);
+Amplify.configure({ ...awsConfig, ssr: true });
 
 const NextApp = ({ Component, pageProps }: AppProps): JSX.Element => (
     <ChakraProvider theme={theme}>

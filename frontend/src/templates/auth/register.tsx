@@ -4,7 +4,6 @@ import NextLink from 'next/link';
 import { Heading, Button, Link, Alert } from "@chakra-ui/react"
 import { useRouter } from 'next/dist/client/router';
 import { Layout , Input, PasswordInput } from '../../components';
-
 import styles from './auth.module.scss';
 
 /**
@@ -83,7 +82,7 @@ export const Register: FC = () => {
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
                         <NextLink href="/login">
-                            <Link>Log in</Link>
+                            <Link tabIndex={0}>Log in</Link>
                         </NextLink>
                     </div>
                 </div>

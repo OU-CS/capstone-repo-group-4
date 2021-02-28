@@ -9,7 +9,7 @@ export type User = {
     lastName: string
 }
 
-const fetcher = async () => {
+export const getUser = async () => {
     const user = await Auth.currentAuthenticatedUser();
     return user;
 }
@@ -18,7 +18,7 @@ const fetcher = async () => {
  * Gets current authenticated user from user pool
  */
 export const useUser = (): User | void => {
-    const {data} = useSWR('/', fetcher);
+    const {data} = useSWR('/', getUser);
 
     if(data) {
         const user: User = {
