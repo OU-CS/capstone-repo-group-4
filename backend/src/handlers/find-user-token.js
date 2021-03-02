@@ -10,11 +10,11 @@ exports.findUserToken = async (event) => {
 
     let responseStatusCode = 400; 
     let responseBody = "token not found";
+
     if(event.userToken === 'TEST') {
         responseStatusCode = 200;
         responseBody = "token found"
     }
-
 
     const response = {
         statusCode: responseStatusCode,

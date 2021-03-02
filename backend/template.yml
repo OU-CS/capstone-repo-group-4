@@ -12,6 +12,17 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        DB_USER: roamDBadmin
+        DB_PASSWORD: StudentTechTeam2021
+        DB_HOST: roam-outdoors-db.csohkaitns7m.us-east-2.rds.amazonaws.com
+        DB_NAME: postgres
+        DB_PORT: 5432
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
@@ -33,6 +44,13 @@ Resources:
           Properties:
             Path: /
             Method: GET
+      Environment:
+        Variables:
+          DB_USER: roamDBadmin
+          DB_PASSWORD: StudentTechTeam2021
+          DB_HOST: roam-outdoors-db.csohkaitns7m.us-east-2.rds.amazonaws.com
+          DB_NAME: postgres
+          DB_PORT: 5432
 
 Outputs:
   WebEndpoint:
