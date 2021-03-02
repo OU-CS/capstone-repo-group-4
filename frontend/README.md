@@ -18,7 +18,7 @@ npm run dev
 
 ## Deployment
 
-Install Amplify CLI globally
+Install AWS Amplify CLI globally
 
 ```bash
 npm install -g @aws-amplify/cli

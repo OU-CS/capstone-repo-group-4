@@ -1,7 +1,9 @@
 import { FC, FormEvent, useState } from 'react';
+import { Auth } from 'aws-amplify';
 import NextLink from 'next/link';
-import { Heading, Button, Link } from "@chakra-ui/react"
-import { Input , Layout, PasswordInput } from '../../components';
+import { Heading, Button, Link, Alert } from "@chakra-ui/react"
+import { useRouter } from 'next/dist/client/router';
+import { Layout , Input, PasswordInput } from '../../components';
 import styles from './auth.module.scss';
 
 /**
@@ -13,20 +15,38 @@ export const Register: FC = () => {
     const emailState = useState('');
     const passwordState = useState('');
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
+    
+    const router = useRouter();
+
     /**
      * Handle creating an account
      */
-    const onRegister = (event: FormEvent<HTMLFormElement>) => {
+    const onRegister = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const [firstName] = firstNameState;
         const [lastName] = lastNameState;
         const [email] = emailState;
         const [password] = passwordState;
 
-        console.log(firstName);
-        console.log(lastName);
-        console.log(email);
-        console.log(password);
+        setLoading(true);
+
+        try {
+            await Auth.signUp({
+                username: email,
+                password,
+                attributes: {
+                    given_name: firstName,
+                    family_name: lastName
+                }
+            });
+
+            router.push('/');
+        } catch (e) {
+            setLoading(false);
+            setError(e.message);
+        }
     }
 
     return (
@@ -49,7 +69,9 @@ export const Register: FC = () => {
                             placeholder="Password"
                             state={passwordState}
                         />
+                        {error && <Alert status="error">{error}</Alert>}
                         <Button 
+                            isLoading={loading}
                             className={styles.button}
                             colorScheme="blue"
                             type="submit"
@@ -60,7 +82,7 @@ export const Register: FC = () => {
                     <div className={styles.footer}>
                         <div className={styles.or}>or</div>
                         <NextLink href="/login">
-                            <Link>Log in</Link>
+                            <Link tabIndex={0}>Log in</Link>
                         </NextLink>
                     </div>
                 </div>

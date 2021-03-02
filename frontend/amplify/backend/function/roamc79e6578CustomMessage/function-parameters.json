@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "roamc79e6578",
+  "functionName": "roamc79e6578CustomMessage",
+  "resourceName": "roamc79e6578CustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/Users/samfletcher/.nvm/versions/node/v12.20.1/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "roamc79e6578CustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://localhost:3000",
+  "EMAILSUBJECT": "Roam verification code",
+  "EMAILMESSAGE": "Please follow the link below to complete the registration process",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

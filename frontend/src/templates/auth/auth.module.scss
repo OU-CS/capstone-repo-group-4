@@ -8,15 +8,15 @@
 
   .container,
   form {
-    display: flex;
-    flex-flow: column;
+    display: grid;
     max-width: 400px;
     row-gap: 14px;
     width: 100%;
 
     .name {
       column-gap: 14px;
-      display: flex;
+      display: grid;
+      grid-template-columns: auto auto;
     }
 
     .button {
@@ -24,14 +24,9 @@
     }
 
     .footer {
-      align-items: center;
-      display: flex;
-      flex-flow: column;
+      display: grid;
+      justify-items: center;
       row-gap: 14px;
-
-      * {
-        width: fit-content;
-      }
     }
   }
 }
