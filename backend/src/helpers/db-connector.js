@@ -9,11 +9,15 @@ pool = new Pool({
   port: process.env.DB_PORT,
 })
 
-function databaseQuery(sqlQuery) {
-    pool.query(sqlQuery, (err, res) => {
-        console.log(err, res.rows) 
-        pool.end() 
-    })
+async function databaseQuery(sqlQuery) {
+  try {
+    const res = await pool.query(
+      sqlQuery
+    );
+    return res.rows;
+  } catch (err) {
+    return err.stack;
+  }
 }
 
 module.exports = { databaseQuery }
