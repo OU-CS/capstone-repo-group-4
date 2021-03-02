@@ -12,17 +12,6 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 
-
-Globals:
-  Function:
-    Environment:
-      Variables:
-        DB_USER: roamDBadmin
-        DB_PASSWORD: StudentTechTeam2021
-        DB_HOST: roam-outdoors-db.csohkaitns7m.us-east-2.rds.amazonaws.com
-        DB_NAME: postgres
-        DB_PORT: 5432
-
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
@@ -33,7 +22,7 @@ Resources:
   findUserTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-all-items.findUserToken
+      Handler: src/handlers/find-user-token.findUserToken
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -42,15 +31,34 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /findtoken
             Method: GET
-      Environment:
-        Variables:
-          DB_USER: roamDBadmin
-          DB_PASSWORD: StudentTechTeam2021
-          DB_HOST: roam-outdoors-db.csohkaitns7m.us-east-2.rds.amazonaws.com
-          DB_NAME: postgres
-          DB_PORT: 5432
+            RestApiId:
+              Ref: RoamApiGateway
+
+  # This is a Lambda function config associated with the source code: find-user-token.js
+  getAllPropertiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-all-properties.getAllProperties
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP get method that returns data from the Database
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /properties/get
+            Method: GET
+            RestApiId:
+              Ref: RoamApiGateway
+
+  # This is the defintion for the Api Gateway that the lambdas will live
+  RoamApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
 
 Outputs:
   WebEndpoint:
