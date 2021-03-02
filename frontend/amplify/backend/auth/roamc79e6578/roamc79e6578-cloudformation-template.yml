@@ -7,20 +7,7 @@ Parameters:
     Type: String
   unauthRoleArn:
     Type: String
-
-  
-  
-  
-  functionroamc79e6578CustomMessageArn:
-    Type: String
-    Default: functionroamc79e6578CustomMessageArn
-  
-  functionroamc79e6578CustomMessageName:
-    Type: String
-    Default: functionroamc79e6578CustomMessageName
-  
-  
-  
+    
 
     
   identityPoolName:
@@ -253,10 +240,6 @@ Resources:
         
       
       
-      LambdaConfig:
-        
-        
-          CustomMessage: !Ref functionroamc79e6578CustomMessageArn
         
         
         
@@ -291,15 +274,6 @@ Resources:
     
   
   
-  
-  UserPoolCustomMessageLambdaInvokePermission:
-    Type: "AWS::Lambda::Permission"
-    DependsOn: UserPool
-    Properties:
-      Action: "lambda:invokeFunction"
-      Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionroamc79e6578CustomMessageName
-      SourceArn: !GetAtt UserPool.Arn
   
   
   
