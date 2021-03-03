@@ -12,7 +12,7 @@ const pool = new Pool({
 async function databaseQuery(sqlQuery) {
     try {
         const res = await pool.query(
-        sqlQuery
+            sqlQuery
         );
         return res.rows;
     } catch (err) {
