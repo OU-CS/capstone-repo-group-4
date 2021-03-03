@@ -14,8 +14,8 @@ exports.getAllProperties = async (event) => {
 
     // Generates a SQL statement for returning all the properties from the database
     // return data from the SQL statement are saved in sqlResponse
-    let sqlStatement = 'SELECT * FROM property';
-    let sqlResponse = await databaseConnector.databaseQuery(sqlStatement);
+    const sqlStatement = 'SELECT * FROM property';
+    const sqlResponse = await databaseConnector.databaseQuery(sqlStatement);
 
     const response = {
         statusCode: 200,
