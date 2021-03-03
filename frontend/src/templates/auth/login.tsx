@@ -21,7 +21,6 @@ const VerificationError: FC<VerificationProps> = ({ children, email, setError })
      * Re-sends verification code and refreshes screen
      */
     const handleClick = async () => {
-        // TODO: Make sure it's not spammable
         try {
             setLoading(true);
             await Auth.resendSignUp(email);
