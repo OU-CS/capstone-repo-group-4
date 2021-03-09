@@ -9,17 +9,18 @@ export const findUserToken: APIGatewayProxyHandler = async (event) => {
     }
     // All log statements are written to CloudWatch
     console.info('received:', event);
-
-    let responseStatusCode = 400; 
-    let responseBody = "token not found";
     const userInfo = event.queryStringParameters;
+    let responseStatusCode;
+    let responseBody;
 
-    if (userInfo?.userToken === null) 
-        return; 
-    
-    if(userInfo?.userToken === 'TEST') {
+    if (userInfo?.userToken != null && userInfo?.userToken === 'TEST') 
+    {
         responseStatusCode = 200;
         responseBody = "token found"
+    }
+    else (userInfo?.userToken === 'TEST') {
+        responseStatusCode = 400; 
+        responseBody = "token not found";
     }
 
     const response = {
