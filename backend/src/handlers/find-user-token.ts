@@ -1,7 +1,9 @@
+import { APIGatewayProxyHandler } from 'aws-lambda';
+
 /**
  * A simple example includes a HTTP get method to get return a message
  */
-exports.findUserToken = async (event) => {
+export const findUserToken: APIGatewayProxyHandler = async (event) => {
     if (event.httpMethod !== 'GET') {
         throw new Error(`getUserTokens only accept GET method, you tried: ${event.httpMethod}`);
     }
@@ -10,8 +12,12 @@ exports.findUserToken = async (event) => {
 
     let responseStatusCode = 400; 
     let responseBody = "token not found";
+    const userInfo = event.queryStringParameters;
 
-    if(event.userToken === 'TEST') {
+    if (userInfo?.userToken === null) 
+        return; 
+    
+    if(userInfo?.userToken === 'TEST') {
         responseStatusCode = 200;
         responseBody = "token found"
     }

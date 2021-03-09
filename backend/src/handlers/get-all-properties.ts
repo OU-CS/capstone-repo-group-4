@@ -1,10 +1,11 @@
 // imports function that connects to the database
-const databaseConnector = require('../helpers/db-connector');
+import { APIGatewayProxyHandler } from 'aws-lambda';
+import { databaseQuery } from '../helpers/db-connector';
 
 /**
  * A simple example of a lambda that returns data from the Database
  */
-exports.getAllProperties = async (event) => {
+export const getAllProperties: APIGatewayProxyHandler = async (event) => {
     if (event.httpMethod !== 'GET') {
         throw new Error(`getUserTokens only accept GET method, you tried: ${event.httpMethod}`);
     }
@@ -15,7 +16,7 @@ exports.getAllProperties = async (event) => {
     // Generates a SQL statement for returning all the properties from the database
     // return data from the SQL statement are saved in sqlResponse
     const sqlStatement = 'SELECT * FROM property';
-    const sqlResponse = await databaseConnector.databaseQuery(sqlStatement);
+    const sqlResponse = await databaseQuery(sqlStatement);
 
     const response = {
         statusCode: 200,
