@@ -18,7 +18,8 @@ export const findUserToken: APIGatewayProxyHandler = async (event) => {
         responseStatusCode = 200;
         responseBody = "token found"
     }
-    else (userInfo?.userToken === 'TEST') {
+    else 
+    {
         responseStatusCode = 400; 
         responseBody = "token not found";
     }
