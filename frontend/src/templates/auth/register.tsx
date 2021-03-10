@@ -1,7 +1,7 @@
 import { FC, FormEvent, useState } from 'react';
 import { Auth } from 'aws-amplify';
 import NextLink from 'next/link';
-import { Heading, Button, Link, Alert } from "@chakra-ui/react"
+import { Heading, Button, Link, Alert, useToast } from "@chakra-ui/react"
 import { useRouter } from 'next/dist/client/router';
 import { Layout , Input, PasswordInput } from '../../components';
 import styles from './auth.module.scss';
@@ -19,6 +19,7 @@ export const Register: FC = () => {
     const [error, setError] = useState();
     
     const router = useRouter();
+    const toast = useToast();
 
     /**
      * Handle creating an account
@@ -42,7 +43,17 @@ export const Register: FC = () => {
                 }
             });
 
+            // Redirect user after sign up
             router.push('/');
+
+            // Send confirmation
+            toast({
+                description: "Your account has been created! We've sent you an email confirmation.",
+                status: "success",
+                duration: 8000,
+                isClosable: true,
+                position: "bottom-left",
+            });
         } catch (e) {
             setLoading(false);
             setError(e.message);
