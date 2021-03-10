@@ -18,6 +18,6 @@
     "scripts": {
         "test": "jest --roots __tests__/unit",
         "integ-test": "jest --roots __tests__/integration",
-        "deploy": "sam build && sam deploy --guided"
+        "deploy": "sam build && sam deploy"
     }
 }

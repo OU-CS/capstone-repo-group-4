@@ -22,7 +22,8 @@ Resources:
   findUserTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/find-user-token.findUserToken
+      CodeUri: src/handlers
+      Handler: find-user-token.findUserToken
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -40,7 +41,8 @@ Resources:
   getAllPropertiesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-all-properties.getAllProperties
+      CodeUri: src/handlers
+      Handler: get-all-properties.getAllProperties
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -63,4 +65,4 @@ Resources:
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${RoamApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
