@@ -14,8 +14,10 @@ export const getAllProperties: APIGatewayProxyHandler = async (event) => {
         const sqlStatement = 'SELECT * FROM property';
         const sqlResponse = await databaseQuery(sqlStatement);
 
+        console.info('success:', sqlResponse);
         return successResponse(sqlResponse);
     } catch (e) {
+        console.error(e);
         return failedResponse(500, e.message);
     }
 }
