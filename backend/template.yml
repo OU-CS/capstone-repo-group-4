@@ -22,7 +22,7 @@ Resources:
   findUserTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/handlers
+      CodeUri: dist/handlers
       Handler: find-user-token.findUserToken
       Runtime: nodejs12.x
       MemorySize: 128
@@ -41,7 +41,7 @@ Resources:
   getAllPropertiesFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: src/handlers
+      CodeUri: dist/handlers
       Handler: get-all-properties.getAllProperties
       Runtime: nodejs12.x
       MemorySize: 128
