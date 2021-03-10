@@ -1,35 +1,40 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
+import { failedResponse, successResponse } from '../helpers/responses';
+
+type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
+
+type UserTokenParams = {
+    userToken: string
+}
+
+/**
+ * Validates all query string parameters from api event
+ */
+const validateParameters = (params: ParamProps): UserTokenParams => {
+    if(!params) {
+        throw new Error('No query parameters were specified');
+    }
+
+    const { userToken } = params;
+
+    if(!userToken) {
+        throw new Error('No userToken was specified');
+    }
+
+    return { userToken }
+}
 
 /**
  * A simple example includes a HTTP get method to get return a message
  */
 export const findUserToken: APIGatewayProxyHandler = async (event) => {
-    if (event.httpMethod !== 'GET') {
-        throw new Error(`getUserTokens only accept GET method, you tried: ${event.httpMethod}`);
-    }
-    // All log statements are written to CloudWatch
     console.info('received:', event);
-    const userInfo = event.queryStringParameters;
-    let responseStatusCode;
-    let responseBody;
 
-    if (userInfo?.userToken != null && userInfo?.userToken === 'TEST') 
-    {
-        responseStatusCode = 200;
-        responseBody = "token found"
-    }
-    else 
-    {
-        responseStatusCode = 400; 
-        responseBody = "token not found";
+    try {
+        validateParameters(event.queryStringParameters);
+    } catch (e) {
+        return failedResponse(400, e.message);
     }
 
-    const response = {
-        statusCode: responseStatusCode,
-        body: responseBody
-    };
-
-    // All log statements are written to CloudWatch
-    console.info(`response from: ${event.path} statusCode: ${response.statusCode} body: ${response.body}`);
-    return response;
+    return successResponse('Token found');
 }
