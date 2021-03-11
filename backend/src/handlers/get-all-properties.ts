@@ -1,5 +1,5 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import { databaseQuery } from '../helpers/db-connector';
+import { getAllPropertiesQuery } from '../helpers/queries';
 import { failedResponse, successResponse } from '../helpers/responses';
 
 /**
@@ -11,8 +11,7 @@ export const getAllProperties: APIGatewayProxyHandler = async (event) => {
     try {
         // Generates a SQL statement for returning all the properties from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlStatement = 'SELECT * FROM property';
-        const sqlResponse = await databaseQuery(sqlStatement);
+        const sqlResponse = await getAllPropertiesQuery(123);
 
         console.info('success:', sqlResponse);
         return successResponse(sqlResponse);

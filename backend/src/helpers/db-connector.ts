@@ -8,14 +8,14 @@ const pool = new Pool({
     port: parseInt(process.env.DB_PORT as string),
 })
 
-export async function databaseQuery(sqlQuery: string) {
+export async function databaseQuery<T>(sqlQuery: string): Promise<T[]> {
     try {
-        const res = await pool.query(
+        const res = await pool.query<T>(
             sqlQuery
         );
         return res.rows;
     } catch (err) {
-        return err.stack;
+        throw err.stack;
     }
 }
 
