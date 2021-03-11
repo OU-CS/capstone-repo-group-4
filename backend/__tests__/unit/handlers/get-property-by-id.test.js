@@ -1,5 +1,5 @@
 // Import all functions from get-all-items.js 
-const lambda = require('../../../src/handlers/get-property-by-id.js');
+import { getPropertyByID } from '../../../src/handlers/get-property-by-id.ts';
 
 // This includes all tests for getAllItemsHandler() 
 describe('Test getSingleProperty', () => {

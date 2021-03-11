@@ -18,5 +18,3 @@ export async function databaseQuery<T>(sqlQuery: string): Promise<T[]> {
         throw err.stack;
     }
 }
-
-
