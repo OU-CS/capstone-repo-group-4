@@ -1,10 +1,10 @@
 // Import all functions from get-all-items.js 
 import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getAllProperties } from '../../../src/handlers/get-all-properties';
+import { getPropertyByID } from '../../../src/handlers/get-property-by-id';
 
 
 // This includes all tests for getAllItemsHandler() 
-describe('Test getAllProperties', () => {
+describe('Test getPropertyByID', () => {
 
     it('should return ids', async () => {
         const event: APIGatewayProxyEvent = {
@@ -23,7 +23,7 @@ describe('Test getAllProperties', () => {
         }
 
         // Invoke helloFromLambdaHandler() 
-        const result = await getAllProperties(event);
+        const result = await getPropertyByID(event);
 
         console.log(result);
     });

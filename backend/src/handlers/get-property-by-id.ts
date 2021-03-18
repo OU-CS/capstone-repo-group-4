@@ -1,6 +1,6 @@
 // imports function that connects to the database
 import { APIGatewayProxyHandler } from 'aws-lambda';
-import {getSinglePropertyQuery} from '../helpers/queries/get-single-property-query';
+import { getSinglePropertyQuery } from '../helpers/queries/get-property-by-id';
 import { successResponse } from '../helpers/responses';
 
 /**
