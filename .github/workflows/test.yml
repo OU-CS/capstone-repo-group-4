@@ -7,6 +7,21 @@ on:
         paths: ['**.ts', '**.tsx', '**.js', '**.jsx']
 
 jobs:
+    changes:
+        runs-on: ubuntu-latest
+        outputs:
+            backend: ${{ steps.filter.outputs.backend }}
+            frontend: ${{ steps.filter.outputs.frontend }}
+        steps:
+            - uses: dorny/paths-filter@v2
+              id: filter
+              with:
+                  filters: |
+                      backend:
+                        - 'backend/**'
+                      frontend:
+                        - 'frontend/**'
+
     install:
         runs-on: ubuntu-18.04
         steps:
@@ -62,7 +77,8 @@ jobs:
 
     build-frontend:
         runs-on: ubuntu-18.04
-        needs: install
+        needs: [install, changes]
+        if: ${{ needs.changes.outputs.frontend == 'true' }}
         steps:
             - name: Checkout Code
               uses: actions/checkout@v2
