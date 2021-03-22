@@ -1,0 +1,82 @@
+# This action tests the environment whenever there's a PR open
+
+name: Backend CI
+
+on:
+    pull_request:
+        paths: ['backend/**.ts', 'backend/**.tsx', 'backend/**.js', 'backend/**.jsx']
+
+jobs:
+    install:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
+
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      backend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Install Backend Dependencies
+              run: npm --prefix backend install
+
+    lint:
+        runs-on: ubuntu-18.04
+        needs: install
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
+
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      backend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Run linter
+              run: npm run lint:backend
+
+    test:
+        runs-on: ubuntu-18.04
+        needs: install
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
+
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      backend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Check that backend tests pass
+              run: npm run test:backend
