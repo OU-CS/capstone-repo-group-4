@@ -1,8 +1,10 @@
-import React from 'react';
-import { AppProps } from 'next/app';
+import { ChakraProvider } from '@chakra-ui/react';
 import Amplify from 'aws-amplify';
-import { ChakraProvider } from "@chakra-ui/react"
-import theme from '../../public/styles/theme'
+import { AppProps } from 'next/app';
+import React from 'react';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+import theme from '../../public/styles/theme';
 import awsConfig from '../aws-exports';
 
 // Configure Amplify authentication
