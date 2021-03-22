@@ -46,12 +46,6 @@ jobs:
             - name: Install Dependencies
               run: npm install
 
-            - name: Install Frontend Dependencies
-              run: npm --prefix frontend install
-
-            - name: Install Backend Dependencies
-              run: npm --prefix backend install
-
     install-frontend:
         runs-on: ubuntu-18.04
         needs: changes
