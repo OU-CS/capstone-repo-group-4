@@ -31,12 +31,12 @@ export const findUserToken: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
 
     try {
-        validateParameters(event.queryStringParameters);
+        const { userToken } = validateParameters(event.queryStringParameters);
+
+        console.info('Token found', userToken);
+        return successResponse({});
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);
     }
-
-    console.info('Token found');
-    return successResponse('Token found');
 };
