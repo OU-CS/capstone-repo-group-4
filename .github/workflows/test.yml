@@ -7,35 +7,6 @@ on:
         paths: ['**.ts', '**.tsx', '**.js', '**.jsx']
 
 jobs:
-    check:
-        name: Check changed files
-        outputs:
-            run_job: ${{ steps.check_files.outputs.run_job }}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v2
-              with:
-                  fetch-depth: 2
-
-            - name: check files
-              id: check_files
-              run: |
-                  echo "=============== list changed files ==============="
-                  git diff --name-only origin/main HEAD
-
-                  echo "========== check paths of changed files =========="
-                  git diff --name-only origin/main HEAD > files.txt
-                  while IFS= read -r file
-                  do
-                    echo $file
-                    if [[ $file == "frontend/"* ]]; then
-                      echo "::set-output name=frontend_changed::true"
-                    else if [[ $file == "backend/"* ]]; then
-                      echo "::set-output name=backend_changed::true"
-                    fi
-                  done < files.txt
-
     install:
         runs-on: ubuntu-18.04
         steps:
@@ -92,7 +63,6 @@ jobs:
     build-frontend:
         runs-on: ubuntu-18.04
         needs: install
-        if: needs.check.outputs.frontend_changed == 'true'
         steps:
             - name: Checkout Code
               uses: actions/checkout@v2
