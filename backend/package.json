@@ -28,7 +28,6 @@
     },
     "scripts": {
         "test": "jest",
-        "integ-test": "jest --roots __tests__/integration",
         "lint": "npm --prefix ../ run lint:backend",
         "lint:fix": "npm --prefix ../ run lint:backend:fix",
         "build": "rm -rf ./dist && webpack-cli",
