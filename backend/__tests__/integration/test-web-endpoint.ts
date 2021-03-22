@@ -6,7 +6,18 @@ import https from 'https';
  */
 const getAndVerifyStackName = async () => {
     const stackName = 'roam';
-    config.update({ region: 'us-east-2' });
+    if (process.env.AWS_ACCESS_ID) {
+        config.update({
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_ID,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+            },
+        });
+    }
+    config.update({
+        region: 'us-east-2',
+    });
+
     const client = new CloudFormation();
     try {
         await client
