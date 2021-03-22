@@ -22,7 +22,8 @@ Resources:
   findUserTokenFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/get-all-items.findUserToken
+      CodeUri: dist/handlers
+      Handler: find-user-token.findUserToken
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 100
@@ -31,10 +32,37 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /
+            Path: /findtoken
             Method: GET
+            RestApiId:
+              Ref: RoamApiGateway
+
+  # This is a Lambda function config associated with the source code: find-user-token.js
+  getAllPropertiesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: dist/handlers
+      Handler: get-all-properties.getAllProperties
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 100
+      Description: A simple example includes a HTTP get method that returns data from the Database
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /properties/get
+            Method: GET
+            RestApiId:
+              Ref: RoamApiGateway
+
+  # This is the defintion for the Api Gateway that the lambdas will live
+  RoamApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
 
 Outputs:
   WebEndpoint:
     Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${RoamApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
