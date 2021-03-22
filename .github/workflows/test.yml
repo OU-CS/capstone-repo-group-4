@@ -3,83 +3,113 @@
 name: CI
 
 on:
-  pull_request:
-    paths: ["**.ts", "**.tsx", "**.js", "**.jsx"]
+    pull_request:
+        paths: ['**.ts', '**.tsx', '**.js', '**.jsx']
 
 jobs:
-  install:
-    runs-on: ubuntu-18.04
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+    check:
+        name: Check changed files
+        outputs:
+            run_job: ${{ steps.check_files.outputs.run_job }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
+            - name: check files
+              id: check_files
+              run: |
+                  echo "=============== list changed files ==============="
+                  git diff --name-only main
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            frontend/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+                  echo "========== check paths of changed files =========="
+                  git diff --name-only main > files.txt
+                  while IFS= read -r file
+                  do
+                    echo $file
+                    if [[ $file == "frontend/"* ]]; then
+                      echo "::set-output name=frontend_changed::true"
+                    else if [[ $file == "backend/"* ]]; then
+                      echo "::set-output name=backend_changed::true"
+                    fi
+                  done < files.txt
 
-      - name: Install Dependencies
-        run: npm install
+    install:
+        runs-on: ubuntu-18.04
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
 
-      - name: Install Frontend Dependencies
-        run: npm --prefix frontend install
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
 
-      - name: Install Backend Dependencies
-        run: npm --prefix backend install
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      frontend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
-  lint:
-    runs-on: ubuntu-18.04
-    needs: install
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+            - name: Install Dependencies
+              run: npm install
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
+            - name: Install Frontend Dependencies
+              run: npm --prefix frontend install
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            frontend/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+            - name: Install Backend Dependencies
+              run: npm --prefix backend install
 
-      - name: Run linter
-        run: npm run lint
+    lint:
+        runs-on: ubuntu-18.04
+        needs: install
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
 
-  build-frontend:
-    runs-on: ubuntu-18.04
-    needs: install
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      frontend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
-      - uses: actions/cache@v2
-        with:
-          path: |
-            node_modules
-            frontend/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-          
-      - name: Check that frontend compiles
-        run: npm run build
+            - name: Run linter
+              run: npm run lint
+
+    build-frontend:
+        runs-on: ubuntu-18.04
+        needs: install
+        if: needs.check.outputs.frontend_changed == 'true'
+        steps:
+            - name: Checkout Code
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
+
+            - uses: actions/cache@v2
+              with:
+                  path: |
+                      node_modules
+                      frontend/node_modules
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
+
+            - name: Check that frontend compiles
+              run: npm run build
