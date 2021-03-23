@@ -1,4 +1,5 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
+// eslint-disable-next-line import/no-cycle
 import { addNewPropertyQuery } from '../helpers/queries/add-new-property';
 import { failedResponse, successResponse } from '../helpers/responses';
 
@@ -69,7 +70,7 @@ export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
 
     // Validate query parameters
     try {
-        (property = validateParameters(event.queryStringParameters));
+        property = validateParameters(event.queryStringParameters);
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);

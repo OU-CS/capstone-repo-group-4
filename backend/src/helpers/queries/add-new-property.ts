@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { AddNewPropertyParams } from '../../handlers/add-new-property';
 import { databaseQuery } from '../db-connector';
 import { Property } from './get-all-properties-query';

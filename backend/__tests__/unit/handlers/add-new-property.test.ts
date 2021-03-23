@@ -8,13 +8,14 @@ describe('Test validateParameters', () => {
     test('valid property definition', () => {
         const params = {
             name: 'Monticello',
-            size: '1676',
+            size: 1676,
             streetAddr: '931 Thomas Jefferson Pkwy',
             city: 'Charlottesville',
             zip: '22902',
             state: 'Virginia',
-            price: '630.00',
-            imgUrl: 'https://monticello-www.s3.amazonaws.com/files/pages/square-xsml-annual-pass-monticello-25oct17-jlooney-0044.jpg'
+            price: 630.0,
+            imgUrl:
+                'https://monticello-www.s3.amazonaws.com/files/pages/square-xsml-annual-pass-monticello-25oct17-jlooney-0044.jpg',
         };
         expect(validateParameters(params)).toStrictEqual(params);
     });
