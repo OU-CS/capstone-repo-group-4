@@ -1,24 +1,25 @@
 {
-    "compilerOptions": {
-      "allowSyntheticDefaultImports": true,
-      "target": "es2019",
-      "lib": [
-        "es2019"
-      ],
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "esModuleInterop": true,
-      "removeComments": true,
-      "noImplicitAny": true,
-      "outDir": "dist",
-      "suppressImplicitAnyIndexErrors": true,
-      "types": [
-        "jest",
-        "node"
-      ]
-    },
-    "include": [
-      "src/**/*.ts"
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "target": "es2019",
+    "lib": [
+      "es2019"
+    ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "outDir": "dist",
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "jest",
+      "node"
     ]
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "__tests__/**/*.ts"
+  ]
+}

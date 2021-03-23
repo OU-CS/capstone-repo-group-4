@@ -5,7 +5,7 @@ import { failedResponse, successResponse } from '../helpers/responses';
 /**
  * A simple example of a lambda that returns data from the Database
  */
-export const getAllProperties: APIGatewayProxyHandler = async (event) => {    
+export const getAllProperties: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
 
     try {
@@ -19,4 +19,4 @@ export const getAllProperties: APIGatewayProxyHandler = async (event) => {
         console.error(e);
         return failedResponse(500, e);
     }
-}
+};

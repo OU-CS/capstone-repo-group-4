@@ -5,8 +5,8 @@
         "dev": "next dev",
         "build": "next build && next export",
         "start": "next start",
-        "lint": "npm --prefix ../ run lint",
-        "lint:fix": "npm --prefix ../ run lint:fix",
+        "lint": "npm --prefix ../ run lint:frontend",
+        "lint:fix": "npm --prefix ../ run lint:frontend:fix",
         "deploy": "amplify publish"
     },
     "dependencies": {

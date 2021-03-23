@@ -56,3 +56,6 @@ frontend/.secret-*
 **/.aws-sam
 frontend/.serverless
 frontend/.serverless_nextjs
+
+# jest
+**/junit.xml

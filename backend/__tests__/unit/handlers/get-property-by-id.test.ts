@@ -1,30 +1,21 @@
-// Import all functions from get-all-items.js
-import { APIGatewayProxyEvent } from 'aws-lambda';
-import { getPropertyByID } from '../../../src/handlers/get-property-by-id';
+import { validateParameters } from '../../../src/handlers/get-property-by-id';
 
+describe('Test validateParameters', () => {
+    test('no parameters specified', () => {
+        expect(() => validateParameters(undefined)).toThrow('No query parameters were specified');
+    });
 
-// This includes all tests for getAllItemsHandler()
-describe('Test getPropertyByID', () => {
+    test('no property id', () => {
+        const params = {
+            wrongParameter: '',
+        };
+        expect(() => validateParameters(params)).toThrow('No propertyId was specified');
+    });
 
-    it('should return ids', async () => {
-        const event: APIGatewayProxyEvent = {
-            body: null,
-            headers: {},
-            multiValueHeaders: {},
-            isBase64Encoded: false,
-            path: "",
-            pathParameters: {},
-            httpMethod: 'GET',
-            queryStringParameters: { userToken: "TEST" },
-            multiValueQueryStringParameters: null,
-            stageVariables: null,
-            requestContext: {},
-            resource: ""
-        }
-
-        // Invoke helloFromLambdaHandler()
-        const result = await getPropertyByID(event);
-
-        console.log(result);
+    test('property id found', () => {
+        const params = {
+            propertyId: '123',
+        };
+        expect(validateParameters(params)).toStrictEqual(params);
     });
 });
