@@ -58,7 +58,7 @@ export const validateParameters = (params: ParamProps): AddNewPropertyParams => 
         throw new Error('No imgurl was specified');
     }
 
-    return { name, size, streetAddr, city, zip, state, pricePerDay, imgUrl };
+    return { name, size: Number(size), streetAddr, city, zip, state, pricePerDay: Number(pricePerDay), imgUrl };
 };
 
 /**
