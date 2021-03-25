@@ -5,7 +5,10 @@ export type Property = {
     name: string;
 };
 
-export const getAllPropertiesQuery = async (): Promise<Property[]> =>
+export const getAllPropertiesQuery = async (startTime: string, endTime: string): Promise<Property[]> =>
     databaseQuery<Property>(`
-    SELECT * FROM property
+        SELECT * FROM property
+            WHERE propertyid IN (SELECT propertyid FROM lease
+            WHERE (startdate NOT BETWEEN ${startTime} AND ${startTime})
+            AND (enddate NOT BETWEEN ${endTime} AND ${endTime}));
 `);
