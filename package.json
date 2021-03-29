@@ -27,5 +27,7 @@
         "typescript": "^4.1.5"
     },
     "license": "ISC",
-    "dependencies": {}
+    "dependencies": {
+        "photoswipe": "^4.1.3"
+    }
 }
