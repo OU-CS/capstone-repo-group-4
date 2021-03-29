@@ -1,28 +1,33 @@
 import { Button } from '@chakra-ui/button';
 import { Grid, GridItem } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import AllImages from './all-images';
 
 const Showcase: FC = () => {
     const router = useRouter();
     const { propertyId } = router.query;
     const [showAll, setShowAll] = useState(false);
+    const [images, setImages] = useState([]);
     console.log(propertyId);
 
     const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
-    const images = [
-        `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-        `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-        `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-        `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-        `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-    ];
+    useEffect(() => {
+        setImages([
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
+        ]);
+    }, []);
 
     return (
         <>
-            {showAll && <AllImages images={images} />}
+            <AllImages showAll={showAll} images={images} close={() => setShowAll(false)} />
             <Grid
                 position="relative"
                 h="400px"

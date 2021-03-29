@@ -4,6 +4,9 @@ import { AppProps } from 'next/app';
 import React from 'react';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import 'swiper/components/navigation/navigation.scss';
+import 'swiper/components/pagination/pagination.scss';
+import 'swiper/swiper.scss';
 import theme from '../../public/styles/theme';
 import awsConfig from '../aws-exports';
 
