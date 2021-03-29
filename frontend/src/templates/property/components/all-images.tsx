@@ -2,10 +2,10 @@ import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Box } from '@chakra-ui/layout';
 import { FC } from 'react';
-import SwiperCore, { Navigation, Pagination } from 'swiper';
+import SwiperCore, { A11y, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-SwiperCore.use([Navigation, Pagination]);
+SwiperCore.use([Navigation, Pagination, A11y]);
 
 type AllImagesProps = {
     images: string[];
@@ -14,7 +14,7 @@ type AllImagesProps = {
 };
 
 const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
-    <Box display={!showAll && 'none'} zIndex="100" w="100vw" pos="absolute" left="0" top="-60px">
+    <Box zIndex="100" w="100vw" pos="absolute" left="0" top={showAll ? '-60px' : 'calc(-100vh - 65px)'}>
         <Button colorScheme="red" onClick={close} size="sm" zIndex={2} pos="absolute" top={4} right={4}>
             Close
         </Button>
@@ -35,7 +35,7 @@ const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
         >
             {images.map((image) => (
                 <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Image src={image} maxW="90%" maxH="calc(100% - 120px)" userSelect="none" />
+                    <Image src={image} maxW="90%" maxH="calc(100% - 120px)" />
                 </SwiperSlide>
             ))}
         </Swiper>

@@ -1,15 +1,11 @@
 import { Button } from '@chakra-ui/button';
 import { Grid, GridItem } from '@chakra-ui/layout';
-import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import AllImages from './all-images';
 
 const Showcase: FC = () => {
-    const router = useRouter();
-    const { propertyId } = router.query;
     const [showAll, setShowAll] = useState(false);
     const [images, setImages] = useState([]);
-    console.log(propertyId);
 
     const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
 
