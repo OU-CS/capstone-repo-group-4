@@ -6,7 +6,6 @@ import { failedResponse, successResponse } from '../helpers/responses';
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
 
 export type AddNewPropertyParams = {
-    name: string;
     size: number;
     streetAddr: string;
     city: string;
@@ -14,6 +13,8 @@ export type AddNewPropertyParams = {
     state: string;
     pricePerDay: number;
     imgUrl: string;
+    name: string;
+    description: string;
 };
 
 /**
@@ -24,11 +25,7 @@ export const validateParameters = (params: ParamProps): AddNewPropertyParams => 
         throw new Error('No query parameters were specified');
     }
 
-    const { name, size, streetAddr, city, zip, state, pricePerDay, imgUrl } = params;
-
-    if (!name) {
-        throw new Error('No name was specified');
-    }
+    const { size, streetAddr, city, zip, state, pricePerDay, imgUrl, name, description } = params;
 
     if (!size) {
         throw new Error('No size was specified');
@@ -58,7 +55,25 @@ export const validateParameters = (params: ParamProps): AddNewPropertyParams => 
         throw new Error('No imgurl was specified');
     }
 
-    return { name, size: Number(size), streetAddr, city, zip, state, pricePerDay: Number(pricePerDay), imgUrl };
+    if (!name) {
+        throw new Error('No name was specified');
+    }
+
+    if (!description) {
+        throw new Error('No description was specified');
+    }
+
+    return {
+        size: Number(size),
+        streetAddr,
+        city,
+        zip,
+        state,
+        pricePerDay: Number(pricePerDay),
+        imgUrl,
+        name,
+        description,
+    };
 };
 
 /**
