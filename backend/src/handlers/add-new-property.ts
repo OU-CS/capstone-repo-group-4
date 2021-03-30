@@ -1,7 +1,7 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
 // eslint-disable-next-line import/no-cycle
 import { addNewPropertyQuery } from '../helpers/queries/add-new-property';
-import { failedResponse, successResponse } from '../helpers/responses';
+import { failedResponse, successResponse } from '../types/responses';
 import { FullProperty } from '../types/full-property';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;

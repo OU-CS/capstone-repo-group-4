@@ -1,6 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { getAllPropertiesQuery } from '../helpers/queries/get-all-properties-query';
-import { failedResponse, successResponse } from '../helpers/responses';
+import { failedResponse, successResponse } from '../types/responses';
 
 /**
  * A simple example of a lambda that returns data from the Database

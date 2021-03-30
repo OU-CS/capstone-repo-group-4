@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
-import { failedResponse, successResponse } from '../helpers/responses';
+import { failedResponse, successResponse } from '../types/responses';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
 

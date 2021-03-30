@@ -1,6 +1,6 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
 import { getSinglePropertyQuery } from '../helpers/queries/get-property-by-id';
-import { failedResponse, successResponse } from '../helpers/responses';
+import { failedResponse, successResponse } from '../types/responses';
 import { PropertyId } from '../types/property-id';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
