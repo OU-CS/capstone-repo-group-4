@@ -2,25 +2,14 @@ import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } fro
 // eslint-disable-next-line import/no-cycle
 import { addNewPropertyQuery } from '../helpers/queries/add-new-property';
 import { failedResponse, successResponse } from '../helpers/responses';
+import { FullProperty } from '../types/full-property';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
-
-export type AddNewPropertyParams = {
-    size: number;
-    streetAddr: string;
-    city: string;
-    zip: string;
-    state: string;
-    pricePerDay: number;
-    imgUrl: string;
-    name: string;
-    description: string;
-};
 
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): AddNewPropertyParams => {
+export const validateParameters = (params: ParamProps): FullProperty => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
@@ -81,7 +70,7 @@ export const validateParameters = (params: ParamProps): AddNewPropertyParams => 
  */
 export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
-    let property: AddNewPropertyParams;
+    let property: FullProperty;
 
     // Validate query parameters
     try {

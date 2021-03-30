@@ -1,17 +1,14 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
 import { deletePropertyQuery } from '../helpers/queries/delete-property';
 import { failedResponse, successResponse } from '../helpers/responses';
+import { PropertyId } from '../types/property-id';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
-
-export type DeletePropertyParams = {
-    propertyId: string;
-};
 
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): DeletePropertyParams => {
+export const validateParameters = (params: ParamProps): PropertyId => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
