@@ -25,7 +25,7 @@ export const Showcase: FC = () => {
         <>
             <AllImages showAll={showAll} images={images} close={() => setShowAll(false)} />
             <Grid
-                my="7"
+                my="10"
                 position="relative"
                 h="400px"
                 templateRows="repeat(2, 1fr)"

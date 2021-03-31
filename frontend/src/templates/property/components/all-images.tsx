@@ -14,7 +14,7 @@ type AllImagesProps = {
 };
 
 const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
-    <Box zIndex="100" w="100vw" pos="absolute" left="0" top={showAll ? '-60px' : 'calc(-100vh - 65px)'}>
+    <Box zIndex="100" w="100vw" pos="absolute" left="0" top={showAll ? '0' : 'calc(-100vh)'}>
         <Button colorScheme="red" onClick={close} size="sm" zIndex={2} pos="absolute" top={4} right={4}>
             Close
         </Button>
@@ -34,7 +34,7 @@ const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
             pagination={{ type: 'fraction' }}
         >
             {images.map((image) => (
-                <SwiperSlide style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <SwiperSlide key={image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Image src={image} maxW="90%" maxH="calc(100% - 120px)" />
                 </SwiperSlide>
             ))}

@@ -16,7 +16,7 @@ export const Tags: FC<TagsProps> = ({ activities }) => {
     return (
         <Wrap spacing="2">
             {activities.map((activity) => (
-                <WrapItem>
+                <WrapItem key={`tag-${activity}`}>
                     <Tag fontWeight="bold">{activity.toUpperCase()}</Tag>
                 </WrapItem>
             ))}
