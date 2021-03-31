@@ -66,7 +66,7 @@ export const DateRangePicker: FC = () => {
     };
 
     return (
-        <Box mb="8" centerContent>
+        <Box mb="8">
             <HStack>
                 <ButtonGroup onClick={() => setOpen(true)} variant="outline" isAttached>
                     <Button mr="-px">

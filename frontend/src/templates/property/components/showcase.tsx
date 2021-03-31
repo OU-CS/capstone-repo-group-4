@@ -3,7 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/layout';
 import { FC, useEffect, useState } from 'react';
 import AllImages from './all-images';
 
-const Showcase: FC = () => {
+export const Showcase: FC = () => {
     const [showAll, setShowAll] = useState(false);
     const [images, setImages] = useState([]);
 
@@ -25,6 +25,7 @@ const Showcase: FC = () => {
         <>
             <AllImages showAll={showAll} images={images} close={() => setShowAll(false)} />
             <Grid
+                my="7"
                 position="relative"
                 h="400px"
                 templateRows="repeat(2, 1fr)"
@@ -105,5 +106,3 @@ const Showcase: FC = () => {
         </>
     );
 };
-
-export default Showcase;
