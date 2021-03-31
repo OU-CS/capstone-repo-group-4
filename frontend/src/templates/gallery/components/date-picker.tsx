@@ -34,7 +34,7 @@ const DatePicker: FC<DatePickerProps> = ({ rangeState, setOpen }) => {
             position="relative"
             ml={isLargerThan740 ? '0' : '-30px'}
             overflowX={isLargerThan740 ? 'hidden' : 'scroll'}
-            width={isLargerThan740 ? 'auto' : '100vw'}
+            width={isLargerThan740 ? 'auto' : '100%'}
         >
             <DateRange
                 showDateDisplay={false}

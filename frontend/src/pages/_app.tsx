@@ -7,6 +7,7 @@ import 'react-date-range/dist/theme/default.css';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/swiper.scss';
+import '../../public/styles/global.css';
 import theme from '../../public/styles/theme';
 import awsConfig from '../aws-exports';
 

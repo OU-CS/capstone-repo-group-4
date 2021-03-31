@@ -14,7 +14,7 @@ type AllImagesProps = {
 };
 
 const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
-    <Box zIndex="100" w="100vw" pos="absolute" left="0" top={showAll ? '0' : 'calc(-100vh)'}>
+    <Box zIndex="100" w="100%" pos="fixed" left="0" top={showAll ? '0' : 'calc(-100vh)'}>
         <Button colorScheme="red" onClick={close} size="sm" zIndex={2} pos="absolute" top={4} right={4}>
             Close
         </Button>
@@ -23,7 +23,7 @@ const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
                 position: 'absolute',
                 top: 0,
                 left: 0,
-                width: '100vw',
+                width: '100%',
                 height: '100vh',
                 minHeight: '400px',
                 background: 'white',
