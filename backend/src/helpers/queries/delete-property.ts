@@ -1,8 +1,8 @@
 import { databaseQuery } from '../db-connector';
 import { Property } from './get-all-properties-query';
 
-export const getSinglePropertyQuery = async (propertyId: string): Promise<Property[]> =>
+export const deletePropertyQuery = async (propertyId: string): Promise<Property[]> =>
     databaseQuery<Property>(`
-        SELECT * FROM property
+        DELETE FROM property
             WHERE propertyid = ${propertyId}
 `);
