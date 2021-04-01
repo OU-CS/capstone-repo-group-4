@@ -9,6 +9,6 @@ export const getAllPropertiesQuery = async (startTime: string, endTime: string):
     databaseQuery<Property>(`
         SELECT * FROM property
             WHERE propertyid IN (SELECT propertyid FROM lease
-            WHERE (startdate NOT BETWEEN ${startTime} AND ${endTime})
-            AND (enddate NOT BETWEEN ${startTime} AND ${endTime}));
+            WHERE (startdate NOT BETWEEN '${startTime}' AND '${endTime}')
+            AND (enddate NOT BETWEEN '${startTime}' AND '${endTime}'));
 `);
