@@ -1,4 +1,4 @@
-import { validateParameters } from '../../../src/handlers/get-property-by-id';
+import { validateParameters } from '../../src/handlers/get-property-by-id';
 
 describe('Test validateParameters', () => {
     test('no parameters specified', () => {

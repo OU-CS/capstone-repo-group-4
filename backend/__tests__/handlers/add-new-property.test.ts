@@ -1,4 +1,4 @@
-import { validateParameters } from '../../../src/handlers/add-new-property';
+import { validateParameters } from '../../src/handlers/add-new-property';
 
 describe('Test validateParameters', () => {
     test('no parameters specified', () => {
