@@ -4,14 +4,14 @@ import { failedResponse, successResponse } from '../helpers/responses';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
 
-export type GetPropertyByIDParams = {
+export type GetLeaseHistoryParams = {
     propertyId: string;
 };
 
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): GetPropertyByIDParams => {
+export const validateParameters = (params: ParamProps): GetLeaseHistoryParams => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
