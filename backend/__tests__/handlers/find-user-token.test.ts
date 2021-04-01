@@ -1,4 +1,4 @@
-import { validateParameters } from '../../../src/handlers/find-user-token';
+import { validateParameters } from '../../src/handlers/find-user-token';
 
 describe('Test validateParameters', () => {
     test('no parameters specified', () => {
