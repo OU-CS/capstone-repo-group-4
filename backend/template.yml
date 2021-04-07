@@ -5,98 +5,119 @@
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
-  roam-backend
+    roam-backend
 
 # Transform section specifies one or more macros that AWS CloudFormation uses to process your template
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
 Transform:
-- AWS::Serverless-2016-10-31
+    - AWS::Serverless-2016-10-31
 
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:
-  # Each Lambda function is defined by properties:
-  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    # Each Lambda function is defined by properties:
+    # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-  RoamRDSSecret:
-    Type: AWS::SecretsManager::Secret
-    Properties:
-      Description: A secret containing RDS access parameters
+    RoamRDSSecret:
+        Type: AWS::SecretsManager::Secret
+        Properties:
+            Description: A secret containing RDS access parameters
 
-  # This is a Lambda function config associated with the source code: find-user-token.ts
-  findUserTokenFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: dist/handlers
-      Handler: find-user-token.findUserToken
-      Runtime: nodejs12.x
-      MemorySize: 128
-      Timeout: 100
-      Description: A simple example includes a HTTP get method that returns a response
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /findtoken
-            Method: GET
-            RestApiId:
-              Ref: RoamApiGateway
-      Environment:
-        Variables:
-          ROAM_RDS_SECRET: !Ref RoamRDSSecret
+    # This is a Lambda function config associated with the source code: find-user-token.ts
+    findUserTokenFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: find-user-token.findUserToken
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: A simple example includes a HTTP get method that returns a response
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /findtoken
+                        Method: GET
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-  # This is a Lambda function config associated with the source code: get-all-properties.ts
-  getAllPropertiesFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: dist/handlers
-      Handler: get-all-properties.getAllProperties
-      Runtime: nodejs12.x
-      MemorySize: 128
-      Timeout: 100
-      Description: Gets all properties stored in the database
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /properties/get
-            Method: GET
-            RestApiId:
-              Ref: RoamApiGateway
-      Environment:
-        Variables:
-          ROAM_RDS_SECRET: !Ref RoamRDSSecret
+    # This is a Lambda function config associated with the source code: get-all-properties.ts
+    getAllPropertiesFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: get-all-properties.getAllProperties
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: Gets all properties stored in the database
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /properties/get
+                        Method: GET
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
+    # This is a Lambda function config associated with the source code: get-property-by-id.ts
+    getPropertyByIdFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: get-property-by-id.getPropertyById
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: Gets properties from the database based on propertyid
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /property/get/
+                        Method: GET
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-  # This is a Lambda function config associated with the source code: get-property-by-id.ts
-  getPropertyByIdFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: dist/handlers
-      Handler: get-property-by-id.getPropertyById
-      Runtime: nodejs12.x
-      MemorySize: 128
-      Timeout: 100
-      Description: Gets properties from the database based on propertyid
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /property/get/
-            Method: GET
-            RestApiId:
-              Ref: RoamApiGateway
-      Environment:
-        Variables:
-          ROAM_RDS_SECRET: !Ref RoamRDSSecret
+    # This is a Lambda function config associated with the source code: get-property-by-id.ts
+    createReservationFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: create-reservation.createReservation
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: creates a reservation in the database given a set of query paramaters
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /reservation
+                        Method: POST
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-  # This is the defintion for the Api Gateway that the lambdas will live
-  RoamApiGateway:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: Prod
+    # This is the defintion for the Api Gateway that the lambdas will live
+    RoamApiGateway:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: Prod
 
 Outputs:
-  WebEndpoint:
-    Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${RoamApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    WebEndpoint:
+        Description: 'API Gateway endpoint URL for Prod stage'
+        Value: !Sub 'https://${RoamApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/'
