@@ -104,7 +104,7 @@ Resources:
                     Type: Api
                     Properties:
                         Path: /property/add/
-                        Method: GET
+                        Method: POST
                         RestApiId:
                             Ref: RoamApiGateway
             Environment:
