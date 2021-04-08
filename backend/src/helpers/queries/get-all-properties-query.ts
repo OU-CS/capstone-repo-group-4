@@ -1,11 +1,7 @@
 import { databaseQuery } from '../db-connector';
+import { GalleryProperty } from '../../types/gallery-property';
 
-export type Property = {
-    id: number;
-    name: string;
-};
-
-export const getAllPropertiesQuery = async (): Promise<Property[]> =>
-    databaseQuery<Property>(`
-    SELECT * FROM property
+export const getAllPropertiesQuery = async (): Promise<GalleryProperty[]> =>
+    databaseQuery<GalleryProperty>(`
+    SELECT (city, state, pricePerDay, imgUrl, name) FROM property;
 `);
