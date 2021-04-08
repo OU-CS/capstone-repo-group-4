@@ -79,7 +79,7 @@ export const validateParameters = (params: ParamProps): AddNewPropertyParams => 
 /**
  * Function to add a new property to the database.
  */
-export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
+export const addNewProperty: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
     let property: AddNewPropertyParams;
 
