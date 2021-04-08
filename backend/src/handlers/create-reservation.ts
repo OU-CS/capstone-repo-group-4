@@ -1,10 +1,10 @@
-import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyHandler } from 'aws-lambda';
 import { createReservationQuery } from '../helpers/queries/create-reservation-query';
 import { failedResponse, successResponse } from '../helpers/responses';
 
-export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
+export type BodyProps = Record<string, string>;
 
-export type CreateReservationPropertyParams = {
+export type CreateReservationPropertyBody = {
     startTime: string;
     endTime: string;
     price: number;
@@ -16,7 +16,7 @@ export type CreateReservationPropertyParams = {
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): CreateReservationPropertyParams => {
+export const validateParameters = (params: BodyProps): CreateReservationPropertyBody => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
@@ -58,7 +58,7 @@ export const createReservation: APIGatewayProxyHandler = async (event) => {
 
     // Validate query parameters
     try {
-        ({ startTime, endTime, price, propertyID, guestID, hostID } = validateParameters(event.queryStringParameters));
+        ({ startTime, endTime, price, propertyID, guestID, hostID } = validateParameters(JSON.parse(event.body)));
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);

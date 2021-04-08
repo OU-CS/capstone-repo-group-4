@@ -1,5 +1,14 @@
 import { databaseQuery } from '../db-connector';
 
+export type Lease = {
+    startTime: string;
+    endTime: string;
+    price: number;
+    propertyId: string;
+    guestId: string;
+    hostId: string;
+};
+
 export const createReservationQuery = async (
     startTime: string,
     endTime: string,
@@ -7,8 +16,8 @@ export const createReservationQuery = async (
     propertyId: string,
     guestId: string,
     hostId: string,
-): Promise<Property[]> =>
-    databaseQuery<Property>(`
+): Promise<Lease[]> =>
+    databaseQuery<Lease>(`
         INSERT INTO lease (hostid, guestid, propertyid, startdate, enddate, costperday, isdeleted)
         VALUES (${hostId}, ${guestId}, ${propertyId}, ${startTime}, ${endTime}, ${price}, ${false});
 `);
