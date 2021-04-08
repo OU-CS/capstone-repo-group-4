@@ -91,8 +91,8 @@ Resources:
           ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
 
- # This is a Lambda function config associated with the source code: get-property-by-id.ts
-  getPropertyByIdFunction:
+ # This is a Lambda function config associated with the source code: get-all-host-properties.ts
+  getAllHostProperties:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: dist/handlers
