@@ -72,7 +72,7 @@ Resources:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: dist/handlers
-            Handler: get-property-by-id.getPropertyById
+            Handler: get-property-by-id.getPropertyByID
             Runtime: nodejs12.x
             MemorySize: 128
             Timeout: 100
