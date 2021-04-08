@@ -111,6 +111,28 @@ Resources:
                 Variables:
                     ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
+    # This is a Lambda function config associated with the source code: get-property-by-id.ts
+    getLeaseHistoryFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: get-lease-history.getLeaseHistory
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: Gets all leases from the database based that match a property id
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /lease/get/
+                        Method: GET
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
+                    
  # This is a Lambda function config associated with the source code: get-all-host-properties.ts
   getAllHostProperties:
     Type: AWS::Serverless::Function
@@ -133,11 +155,11 @@ Resources:
         Variables:
           ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-  # This is the defintion for the Api Gateway that the lambdas will live
-  RoamApiGateway:
-    Type: AWS::Serverless::Api
-    Properties:
-      StageName: Prod
+    # This is the defintion for the Api Gateway that the lambdas will live
+    RoamApiGateway:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: Prod
 
 Outputs:
     WebEndpoint:
