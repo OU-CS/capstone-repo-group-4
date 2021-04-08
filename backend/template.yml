@@ -89,6 +89,28 @@ Resources:
                 Variables:
                     ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
+    # This is a Lambda function config associated with the source code: get-property-by-id.ts
+    createReservationFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: create-reservation.createReservation
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: creates a reservation in the database given a set of query paramaters
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /reservation
+                        Method: POST
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
+
     # This is a Lambda function config associated with the source code: add-new-property.ts
     addNewPropertyFunction:
         Type: AWS::Serverless::Function
@@ -132,34 +154,34 @@ Resources:
             Environment:
                 Variables:
                     ROAM_RDS_SECRET: !Ref RoamRDSSecret
-                    
- # This is a Lambda function config associated with the source code: get-all-host-properties.ts
-  getAllHostProperties:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: dist/handlers
-      Handler: get-all-host-properties.getHostByID
-      Runtime: nodejs12.x
-      MemorySize: 128
-      Timeout: 100
-      Description: Gets all properties from a given host based on hostID
-      Events:
-        Api:
-          Type: Api
-          Properties:
-            Path: /host/properties
-            Method: GET
-            RestApiId:
-              Ref: RoamApiGateway
-      Environment:
-        Variables:
-          ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-    # This is the defintion for the Api Gateway that the lambdas will live
-    RoamApiGateway:
-        Type: AWS::Serverless::Api
+    # This is a Lambda function config associated with the source code: get-all-host-properties.ts
+    getAllHostProperties:
+        Type: AWS::Serverless::Function
         Properties:
-            StageName: Prod
+        CodeUri: dist/handlers
+        Handler: get-all-host-properties.getHostByID
+        Runtime: nodejs12.x
+        MemorySize: 128
+        Timeout: 100
+        Description: Gets all properties from a given host based on hostID
+        Events:
+            Api:
+            Type: Api
+            Properties:
+                Path: /host/properties
+                Method: GET
+                RestApiId:
+                Ref: RoamApiGateway
+        Environment:
+            Variables:
+            ROAM_RDS_SECRET: !Ref RoamRDSSecret
+
+        # This is the defintion for the Api Gateway that the lambdas will live
+        RoamApiGateway:
+            Type: AWS::Serverless::Api
+            Properties:
+                StageName: Prod
 
 Outputs:
     WebEndpoint:
