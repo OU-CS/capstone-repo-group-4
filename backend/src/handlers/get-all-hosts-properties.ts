@@ -1,37 +1,40 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
-import { getSinglePropertyQuery } from '../helpers/queries/get-property-by-id';
+import { getPropertiesFromHostQuery } from '../helpers/queries/get-all-hosts-properties';
 import { failedResponse, successResponse } from '../helpers/responses';
-import { PropertyId } from '../types/property-id';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
+
+export type GetHostByIDParams = {
+    hostId: string;
+};
 
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): PropertyId => {
+export const validateParameters = (params: ParamProps): GetHostByIDParams => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
 
-    const { propertyId } = params;
+    const { hostId } = params;
 
-    if (!propertyId) {
-        throw new Error('No propertyId was specified');
+    if (!hostId) {
+        throw new Error('No hostId was specified');
     }
 
-    return { propertyId };
+    return { hostId };
 };
 
 /**
  * A simple example of a lambda that returns data from the Database
  */
-export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
+export const getHostByID: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
-    let propertyId: string;
+    let hostId: string;
 
     // Validate query parameters
     try {
-        ({ propertyId } = validateParameters(event.queryStringParameters));
+        ({ hostId } = validateParameters(event.queryStringParameters));
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);
@@ -40,7 +43,7 @@ export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     try {
         // Generates a SQL statement for returning all the properties from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlResponse = await getSinglePropertyQuery(propertyId);
+        const sqlResponse = await getPropertiesFromHostQuery(hostId);
 
         console.info('success:', sqlResponse);
         return successResponse(sqlResponse);

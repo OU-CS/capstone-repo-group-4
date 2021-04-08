@@ -1,14 +1,17 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
-import { getSinglePropertyQuery } from '../helpers/queries/get-property-by-id';
+import { getLeaseHistoryQuery } from '../helpers/queries/get-lease-history-query';
 import { failedResponse, successResponse } from '../helpers/responses';
-import { PropertyId } from '../types/property-id';
 
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
+
+export type GetLeaseHistoryParams = {
+    propertyId: string;
+};
 
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: ParamProps): PropertyId => {
+export const validateParameters = (params: ParamProps): GetLeaseHistoryParams => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
@@ -25,7 +28,7 @@ export const validateParameters = (params: ParamProps): PropertyId => {
 /**
  * A simple example of a lambda that returns data from the Database
  */
-export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
+export const getLeaseHistory: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
     let propertyId: string;
 
@@ -40,7 +43,7 @@ export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     try {
         // Generates a SQL statement for returning all the properties from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlResponse = await getSinglePropertyQuery(propertyId);
+        const sqlResponse = await getLeaseHistoryQuery(propertyId);
 
         console.info('success:', sqlResponse);
         return successResponse(sqlResponse);
