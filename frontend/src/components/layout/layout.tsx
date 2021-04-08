@@ -1,10 +1,8 @@
+import { Container, ContainerProps } from '@chakra-ui/layout';
 import { FC } from 'react';
-import styles from './layout.module.scss';
 
-export const Layout: FC = ({ children }) => (
-    <div className={styles.layout}>
-        <div className={styles.container}>
-            {children}
-        </div>
-    </div>
+export const Layout: FC<ContainerProps> = ({ children, ...props }) => (
+    <Container maxW="6xl" px="8" py="8" {...props}>
+        {children}
+    </Container>
 );
