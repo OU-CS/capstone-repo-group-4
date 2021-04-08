@@ -18,6 +18,8 @@ npm run dev
 
 ## Deployment
 
+> You must have the appropriate AWS credentials configured
+
 Install AWS Amplify CLI globally
 
 ```bash

@@ -34,7 +34,7 @@ const DatePicker: FC<DatePickerProps> = ({ rangeState, setOpen }) => {
             position="relative"
             ml={isLargerThan740 ? '0' : '-30px'}
             overflowX={isLargerThan740 ? 'hidden' : 'scroll'}
-            width={isLargerThan740 ? 'auto' : '100vw'}
+            width={isLargerThan740 ? 'auto' : '100%'}
         >
             <DateRange
                 showDateDisplay={false}
@@ -66,7 +66,7 @@ export const DateRangePicker: FC = () => {
     };
 
     return (
-        <Box mb="8" centerContent>
+        <Box mb="8">
             <HStack>
                 <ButtonGroup onClick={() => setOpen(true)} variant="outline" isAttached>
                     <Button mr="-px">

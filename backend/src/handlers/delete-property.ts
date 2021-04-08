@@ -1,5 +1,5 @@
 import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
-import { getSinglePropertyQuery } from '../helpers/queries/get-property-by-id';
+import { deletePropertyQuery } from '../helpers/queries/delete-property';
 import { failedResponse, successResponse } from '../helpers/responses';
 import { PropertyId } from '../types/property-id';
 
@@ -23,7 +23,7 @@ export const validateParameters = (params: ParamProps): PropertyId => {
 };
 
 /**
- * A simple example of a lambda that returns data from the Database
+ * Lambda that deletes a property form the databasee given propertyId
  */
 export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
@@ -38,9 +38,9 @@ export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     }
 
     try {
-        // Generates a SQL statement for returning all the properties from the database
+        // Generates a SQL statement for deleting a property from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlResponse = await getSinglePropertyQuery(propertyId);
+        const sqlResponse = await deletePropertyQuery(propertyId);
 
         console.info('success:', sqlResponse);
         return successResponse(sqlResponse);
