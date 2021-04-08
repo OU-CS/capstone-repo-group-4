@@ -159,29 +159,29 @@ Resources:
     getAllHostProperties:
         Type: AWS::Serverless::Function
         Properties:
-        CodeUri: dist/handlers
-        Handler: get-all-host-properties.getHostByID
-        Runtime: nodejs12.x
-        MemorySize: 128
-        Timeout: 100
-        Description: Gets all properties from a given host based on hostID
-        Events:
-            Api:
-            Type: Api
-            Properties:
-                Path: /host/properties
-                Method: GET
-                RestApiId:
-                Ref: RoamApiGateway
-        Environment:
-            Variables:
-            ROAM_RDS_SECRET: !Ref RoamRDSSecret
+            CodeUri: dist/handlers
+            Handler: get-all-hosts-properties.getHostByID
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: Gets all properties from a given host based on hostID
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /host/properties
+                        Method: GET
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
-        # This is the defintion for the Api Gateway that the lambdas will live
-        RoamApiGateway:
-            Type: AWS::Serverless::Api
-            Properties:
-                StageName: Prod
+    # This is the defintion for the Api Gateway that the lambdas will live
+    RoamApiGateway:
+        Type: AWS::Serverless::Api
+        Properties:
+            StageName: Prod
 
 Outputs:
     WebEndpoint:
