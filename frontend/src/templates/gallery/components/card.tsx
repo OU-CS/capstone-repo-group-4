@@ -1,66 +1,44 @@
-import { Badge, Box, HStack, Image, Skeleton } from '@chakra-ui/react';
+import { Badge, Box, HStack } from '@chakra-ui/react';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC } from 'react';
+import { FullProperty } from '../../../services/api/types';
+import { getStateAbbreviation } from '../../../utils/state-abbreviations';
 
-type Property = {
-    id: string;
-    imageUrl: string;
-    title: string;
-    formattedPrice: string;
-    address: {
-        city: string;
-        state: string;
-    };
+type CardProps = {
+    property: FullProperty;
 };
 
-export const Card: FC = () => {
-    const [isLoaded, setLoaded] = useState(false);
+export const Card: FC<CardProps> = ({ property }) => (
+    <Link href={`/property/${property.propertyid}`}>
+        <a>
+            <Box maxW="md" borderWidth="1px" borderRadius="lg" overflow="hidden">
+                <Box bg={`url(${property.imgurl})`} bgPos="center" bgSize="cover" height="220px" />
+                <Box p="6">
+                    <Box d="flex" alignItems="baseline">
+                        <HStack>
+                            <Badge>Fishing</Badge>
+                            <Badge>Camping</Badge>
+                            <Badge>Hunting</Badge>
+                        </HStack>
+                    </Box>
 
-    const property: Property = {
-        id: '123',
-        imageUrl: `https://picsum.photos/seed/${Math.random()}/800/500`,
-        title: 'Modern home in city center in the heart of historic Los Angeles',
-        formattedPrice: '$100',
-        address: {
-            city: 'Broken Bow',
-            state: 'OK',
-        },
-    };
+                    <Box mt="1" fontWeight="semibold" as="h4" title={property.name} isTruncated>
+                        {property.name}
+                    </Box>
 
-    return (
-        <Link href={`/property/${property.id}`}>
-            <a>
-                <Box maxW="md" borderWidth="1px" borderRadius="lg" overflow="hidden">
-                    <Skeleton isLoaded={isLoaded}>
-                        <Image src={property.imageUrl} alt={property.title} onLoad={() => setLoaded(true)} />
-                    </Skeleton>
-                    <Box p="6">
-                        <Box d="flex" alignItems="baseline">
-                            <HStack>
-                                <Badge>Fishing</Badge>
-                                <Badge>Camping</Badge>
-                                <Badge>Hunting</Badge>
-                            </HStack>
-                        </Box>
+                    <Box color="gray.600">
+                        {property.city}, {getStateAbbreviation(property.state)}
+                    </Box>
 
-                        <Box mt="1" fontWeight="semibold" as="h4" title={property.title} isTruncated>
-                            {property.title}
-                        </Box>
-
-                        <Box color="gray.600">
-                            {property.address.city}, {property.address.state}
-                        </Box>
-
-                        <Box mt="1">
-                            {property.formattedPrice}
-                            <Box as="span" color="gray.600" fontSize="sm">
-                                {' '}
-                                / night
-                            </Box>
+                    <Box mt="1">
+                        ${property.priceperday}
+                        <Box as="span" color="gray.600" fontSize="sm">
+                            {' '}
+                            / night
                         </Box>
                     </Box>
                 </Box>
-            </a>
-        </Link>
-    );
-};
+            </Box>
+        </a>
+    </Link>
+);

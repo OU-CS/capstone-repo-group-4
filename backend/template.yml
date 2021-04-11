@@ -182,6 +182,10 @@ Resources:
         Type: AWS::Serverless::Api
         Properties:
             StageName: Prod
+            Cors:
+                AllowHeaders: "'*'"
+                AllowMethods: "'*'"
+                AllowOrigin: "'*'"
 
 Outputs:
     WebEndpoint:

@@ -2,7 +2,6 @@ import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } fro
 import { getAllPropertiesQuery } from '../helpers/queries/get-all-properties-query';
 import { failedResponse, successResponse } from '../helpers/responses';
 
-
 export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
 
 export type GetAllPropertyParams = {
@@ -27,7 +26,7 @@ export const validateParameters = (params: ParamProps): GetAllPropertyParams => 
         throw new Error('No endTime was specified');
     }
 
-    return {startTime, endTime} ;
+    return { startTime, endTime };
 };
 
 /**
@@ -40,7 +39,7 @@ export const getAllProperties: APIGatewayProxyHandler = async (event) => {
 
     // Validate query parameters
     try {
-        ( {startTime, endTime}  = validateParameters(event.queryStringParameters));
+        ({ startTime, endTime } = validateParameters(event.queryStringParameters));
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);

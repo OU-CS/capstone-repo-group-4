@@ -40,10 +40,10 @@ export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
     try {
         // Generates a SQL statement for returning all the properties from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlResponse = await getSinglePropertyQuery(propertyId);
+        const [property] = await getSinglePropertyQuery(propertyId);
 
-        console.info('success:', sqlResponse);
-        return successResponse(sqlResponse);
+        console.info('success:', property);
+        return successResponse(property);
     } catch (e) {
         console.error(e);
         return failedResponse(500, e);

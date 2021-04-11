@@ -1,14 +1,22 @@
 import { APIGatewayProxyResult } from 'aws-lambda';
 
+const headers = {
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Credentials': true,
+};
+
 /**
  * Builds a failed response for handlers
  */
-export const failedResponse = (statusCode: number, message: string): APIGatewayProxyResult => ({
+export const failedResponse = (statusCode: number, error: any): APIGatewayProxyResult => ({
     body: JSON.stringify({
         success: false,
-        error: message,
+        error: error.message || error,
     }),
-    statusCode
+    statusCode,
+    headers,
 });
 
 type SuccessPayload = Record<string, any> | [] | string;
@@ -18,5 +26,6 @@ type SuccessPayload = Record<string, any> | [] | string;
  */
 export const successResponse = (payload: SuccessPayload): APIGatewayProxyResult => ({
     body: JSON.stringify(payload),
-    statusCode: 200
+    statusCode: 200,
+    headers,
 });

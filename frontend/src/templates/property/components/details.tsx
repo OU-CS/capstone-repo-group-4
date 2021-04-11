@@ -1,39 +1,43 @@
 import { StackDivider, VStack, Wrap, WrapItem } from '@chakra-ui/layout';
 import { FC } from 'react';
-import { Host, HostProps } from './host';
+import { FullProperty } from '../../../services/api/types';
+import { Host } from './host';
 import PricingReserve from './pricing-reserve';
-import { Size, SizeProps } from './size';
-import { Tags, TagsProps } from './tags';
+import { Size } from './size';
+import { Activities, Tags } from './tags';
 
-interface DetailsProps extends TagsProps, SizeProps, HostProps {
+const activities: Activities[] = ['hunting', 'camping', 'fishing'];
+
+interface DetailsProps {
     width: number;
+    property: FullProperty;
 }
 
-export const Details: FC<DetailsProps> = ({ activities, size, host, width }) => {
+export const Details: FC<DetailsProps> = ({ width, property }) => {
     if (width < 780) {
         return (
             <Wrap align="center" spacing="3">
                 <WrapItem alignItems="center" h="auto" borderRadius="md" border="1px solid #E2E8F0" p="4">
-                    <PricingReserve />
+                    <PricingReserve price={property.priceperday} />
                 </WrapItem>
                 <WrapItem alignItems="center" h="auto" borderRadius="md" border="1px solid #E2E8F0" p="4">
                     <Tags activities={activities} />
                 </WrapItem>
                 <WrapItem alignItems="center" h="auto" borderRadius="md" border="1px solid #E2E8F0" p="4">
-                    <Size size={size} />
+                    <Size size={property.size} />
                 </WrapItem>
                 <WrapItem alignItems="center" h="auto" borderRadius="md" border="1px solid #E2E8F0" p="4">
-                    <Host host={host} />
+                    <Host host="John Doe" />
                 </WrapItem>
             </Wrap>
         );
     }
     return (
         <VStack width="100%" divider={<StackDivider />} maxW="200px" spacing="6" alignItems="flex-start" float="right">
-            <PricingReserve />
+            <PricingReserve price={property.priceperday} />
             <Tags activities={activities} />
-            <Size size={size} />
-            <Host host={host} />
+            <Size size={property.size} />
+            <Host host="John Doe" />
         </VStack>
     );
 };
