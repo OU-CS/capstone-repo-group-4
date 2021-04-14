@@ -13,5 +13,5 @@ export type Lease = {
 export const getLeaseHistoryQuery = async (propertyId: string): Promise<Lease[]> =>
     databaseQuery<Lease>(`
         SELECT * FROM lease
-            WHERE proptertyid = ${propertyId}
+            WHERE propertyid = ${propertyId}
 `);
