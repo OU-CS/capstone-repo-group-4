@@ -1,8 +1,8 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyEventQueryStringParameters, APIGatewayProxyHandler } from 'aws-lambda';
 import { createReservationQuery } from '../helpers/queries/create-reservation-query';
 import { failedResponse, successResponse } from '../helpers/responses';
 
-export type BodyProps = Record<string, string>;
+export type ParamProps = APIGatewayProxyEventQueryStringParameters | null;
 
 export type CreateReservationPropertyBody = {
     startTime: string;
@@ -16,7 +16,7 @@ export type CreateReservationPropertyBody = {
 /**
  * Validates all query string parameters from api event
  */
-export const validateParameters = (params: BodyProps): CreateReservationPropertyBody => {
+export const validateParameters = (params: ParamProps): CreateReservationPropertyBody => {
     if (!params) {
         throw new Error('No query parameters were specified');
     }
