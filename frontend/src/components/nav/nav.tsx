@@ -39,9 +39,9 @@ const UserProfile: FC<Required<UserProps>> = ({ user }) => {
                     {user.firstName}
                 </MenuButton>
                 <MenuList>
-                    <MenuItem>
-                        <Link href="/property/add">Add Listing</Link>
-                    </MenuItem>
+                    <Link href="/property/add">
+                        <MenuItem>Add Listing</MenuItem>
+                    </Link>
                     <MenuItem onClick={logOut}>Log out</MenuItem>
                 </MenuList>
             </Menu>
