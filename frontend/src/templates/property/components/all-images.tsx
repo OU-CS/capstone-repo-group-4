@@ -33,8 +33,11 @@ const AllImages: FC<AllImagesProps> = ({ showAll, images, close }) => (
             navigation
             pagination={{ type: 'fraction' }}
         >
-            {images.map((image) => (
-                <SwiperSlide key={image} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {images.map((image, i) => (
+                <SwiperSlide
+                    key={`${image}${i}`}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
                     <Image src={image} maxW="90%" maxH="calc(100% - 120px)" />
                 </SwiperSlide>
             ))}

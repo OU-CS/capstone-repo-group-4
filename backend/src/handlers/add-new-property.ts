@@ -74,7 +74,7 @@ export const addNewProperty: APIGatewayProxyHandler = async (event) => {
 
     // Validate query parameters
     try {
-        property = validateParameters(event.queryStringParameters);
+        property = validateParameters(JSON.parse(event.body));
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);

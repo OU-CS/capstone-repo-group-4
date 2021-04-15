@@ -1,25 +1,14 @@
 import { Button } from '@chakra-ui/button';
 import { Grid, GridItem } from '@chakra-ui/layout';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import AllImages from './all-images';
 
-export const Showcase: FC = () => {
+type ShowcaseProps = {
+    images: string[];
+};
+
+export const Showcase: FC<ShowcaseProps> = ({ images }) => {
     const [showAll, setShowAll] = useState(false);
-    const [images, setImages] = useState([]);
-
-    const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-    useEffect(() => {
-        setImages([
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-            `https://picsum.photos/seed/${Math.random()}/${getRandomInt(500, 1000)}/${getRandomInt(500, 1000)}`,
-        ]);
-    }, []);
 
     return (
         <>

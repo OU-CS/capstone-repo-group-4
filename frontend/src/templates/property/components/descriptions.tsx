@@ -1,8 +1,13 @@
 import { Heading, Text, VStack } from '@chakra-ui/layout';
 import { FC } from 'react';
+import { FullProperty } from '../../../services/api/types';
 import { Location } from './location';
 
-export const Description: FC = ({ children }) => (
+type DescriptionProps = {
+    property: FullProperty;
+};
+
+export const Description: FC<DescriptionProps> = ({ property, children }) => (
     <VStack align="flex-start">
         <Heading size="md">Description</Heading>
         {children
@@ -15,6 +20,6 @@ export const Description: FC = ({ children }) => (
         <Heading pt="12px" size="md">
             Location
         </Heading>
-        <Location address="University of Oklahoma, Norman OK" />
+        <Location address={`${property.streetaddr}, ${property.city} ${property.state}`} />
     </VStack>
 );

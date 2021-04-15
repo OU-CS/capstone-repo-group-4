@@ -4,10 +4,12 @@ import { Box, HStack, Text, VStack } from '@chakra-ui/layout';
 import { useMediaQuery } from '@chakra-ui/media-query';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { DateRange } from 'react-date-range';
+import { getAllProperties } from '../../../services/api/api';
+import { FullProperty } from '../../../services/api/types';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-type RangeState = {
+export type RangeState = {
     startDate: Date;
     endDate: Date;
     key: string;
@@ -48,21 +50,39 @@ const DatePicker: FC<DatePickerProps> = ({ rangeState, setOpen }) => {
     );
 };
 
-export const DateRangePicker: FC = () => {
-    const now = new Date();
+type DateRangePickerProps = {
+    rangeState: [RangeState, Dispatch<SetStateAction<RangeState>>];
+    now: Date;
+    setProperties: Dispatch<SetStateAction<FullProperty[]>>;
+};
+
+export const DateRangePicker: FC<DateRangePickerProps> = ({ setProperties, rangeState, now }) => {
+    const [range] = rangeState;
     const [isOpen, setOpen] = useState(false);
-    const [range, setRange] = useState<RangeState>({
-        startDate: now,
-        endDate: now,
-        key: 'selection',
-    });
+    const [isLoading, setLoading] = useState(false);
 
     const formatDate = (date: Date): string | null => {
-        if (date === now) {
+        const comparable = (time: number) => (time - (time % 10000)) / 10000;
+
+        if (!date || comparable(date.getTime()) === comparable(now.getTime())) {
             return 'Select date';
         }
 
         return `${MONTHS[date.getMonth()]} ${date.getDate()}`;
+    };
+
+    const updateProperties = () => {
+        setLoading(true);
+        getAllProperties({
+            startTime: range.startDate,
+            endTime: range.endDate,
+        }).then((res) => {
+            if (res.wasSuccessful) {
+                setProperties(res.body);
+                setOpen(false);
+            }
+            setLoading(false);
+        });
     };
 
     return (
@@ -86,9 +106,11 @@ export const DateRangePicker: FC = () => {
                         </VStack>
                     </Button>
                 </ButtonGroup>
-                <Button>Search</Button>
+                <Button isLoading={isLoading} onClick={updateProperties}>
+                    Search
+                </Button>
             </HStack>
-            {isOpen && <DatePicker setOpen={setOpen} rangeState={[range, setRange]} />}
+            {isOpen && <DatePicker setOpen={setOpen} rangeState={rangeState} />}
         </Box>
     );
 };
