@@ -148,7 +148,7 @@ Resources:
                     Type: Api
                     Properties:
                         Path: /property/delete/
-                        Method: POST
+                        Method: DELETE
                         RestApiId:
                             Ref: RoamApiGateway
             Environment:
