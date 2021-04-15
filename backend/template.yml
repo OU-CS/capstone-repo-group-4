@@ -133,6 +133,28 @@ Resources:
                 Variables:
                     ROAM_RDS_SECRET: !Ref RoamRDSSecret
 
+    # This is a Lambda function config associated with the source code: delete-property.ts
+    deletePropertyFunction:
+        Type: AWS::Serverless::Function
+        Properties:
+            CodeUri: dist/handlers
+            Handler: delete-property.deleteProperty
+            Runtime: nodejs12.x
+            MemorySize: 128
+            Timeout: 100
+            Description: Delete a property from the database
+            Events:
+                Api:
+                    Type: Api
+                    Properties:
+                        Path: /property/delete/
+                        Method: DELETE
+                        RestApiId:
+                            Ref: RoamApiGateway
+            Environment:
+                Variables:
+                    ROAM_RDS_SECRET: !Ref RoamRDSSecret
+
     # This is a Lambda function config associated with the source code: get-property-by-id.ts
     getLeaseHistoryFunction:
         Type: AWS::Serverless::Function

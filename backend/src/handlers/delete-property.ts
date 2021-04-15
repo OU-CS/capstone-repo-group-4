@@ -25,7 +25,7 @@ export const validateParameters = (params: ParamProps): PropertyId => {
 /**
  * Lambda that deletes a property form the databasee given propertyId
  */
-export const getPropertyByID: APIGatewayProxyHandler = async (event) => {
+export const deleteProperty: APIGatewayProxyHandler = async (event) => {
     console.info('received:', event);
     let propertyId: string;
 
