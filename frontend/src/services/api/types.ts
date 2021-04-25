@@ -23,6 +23,18 @@ export type FullProperty = {
     description: string;
 };
 
+export type AddPropertyReq = {
+    size: number;
+    streetAddr: string;
+    city: string;
+    zip: string;
+    state: string;
+    pricePerDay: number;
+    imgUrl: string;
+    name: string;
+    description: string;
+};
+
 export type GetAllPropertiesRequest = {
     startTime: Date;
     endTime: Date;

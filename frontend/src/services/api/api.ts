@@ -1,8 +1,8 @@
 import { makeRequest } from './make-request';
 import { ApiResponse } from './responses';
-import { FullProperty, GetAllPropertiesRequest, PropertyId } from './types';
+import { AddPropertyReq, FullProperty, GetAllPropertiesRequest, PropertyId } from './types';
 
-export const addNewProperty = (property: FullProperty): Promise<ApiResponse<PropertyId[]>> =>
+export const addNewProperty = (property: AddPropertyReq): Promise<ApiResponse<PropertyId[]>> =>
     makeRequest<PropertyId[]>({
         method: 'POST',
         url: `/property/add`,

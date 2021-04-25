@@ -14,7 +14,7 @@ export type ApiSuccessResponse<T> = ApiBaseResponse & {
 
 export type ApiFailedResponse = ApiBaseResponse & {
     wasSuccessful: false;
-    error: unknown;
+    error: string;
 };
 
 export type ApiResponse<T> = ApiSuccessResponse<T> | ApiFailedResponse;

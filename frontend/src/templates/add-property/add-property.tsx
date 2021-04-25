@@ -1,4 +1,6 @@
 import {
+    Alert,
+    AlertIcon,
     Button,
     FormControl,
     FormLabel,
@@ -16,11 +18,15 @@ import {
     useMediaQuery,
     VStack,
 } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Layout } from '../../components';
+import { useUser } from '../../hooks/use-user';
+import { addNewProperty } from '../../services/api/api';
+import { ApiFailedResponse } from '../../services/api/responses';
 import { stateLabelValues } from '../../utils/state-abbreviations';
 
 const AddProperty: FC = () => {
+    const { loading: userLoading, user } = useUser();
     const [isSmallerThan740] = useMediaQuery('(max-width: 740px)');
 
     const [name, setName] = useState('');
@@ -34,13 +40,48 @@ const AddProperty: FC = () => {
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
 
-    const onSubmit = () => {
-        console.log('test');
+    const [isLoading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        if (!userLoading && !user) {
+            window.location.href = '/';
+        }
+    }, [userLoading]);
+
+    const onSubmit = async () => {
+        setLoading(true);
+        console.log(address);
+        const res = await addNewProperty({
+            name,
+            description,
+            size: Number(size),
+            imgUrl: image,
+            pricePerDay: Number(price),
+            streetAddr: `${address} ${apt}`,
+            city,
+            state,
+            zip,
+        });
+        if (res.wasSuccessful) {
+            window.location.href = '/';
+        } else {
+            setError((res as ApiFailedResponse).error);
+            window.scrollTo(0, 0);
+        }
+
+        setLoading(false);
     };
 
     return (
         <Layout>
             <Heading>Add Listing</Heading>
+            {error && (
+                <Alert mt={4} w="fit-content" status="error">
+                    <AlertIcon />
+                    {error}
+                </Alert>
+            )}
             <Stack
                 direction={isSmallerThan740 ? 'column' : 'row'}
                 alignItems="flex-start"
@@ -50,11 +91,15 @@ const AddProperty: FC = () => {
                 <VStack w="100%">
                     <FormControl isRequired>
                         <FormLabel>Property name</FormLabel>
-                        <Input state={[name, setName]} />
+                        <Input value={name} onChange={(val) => setName(val.target.value)} />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>Description</FormLabel>
-                        <Textarea state={[description, setDescription]} placeholder="Tell us about your property" />
+                        <Textarea
+                            value={description}
+                            onChange={(val) => setDescription(val.target.value)}
+                            placeholder="Tell us about your property"
+                        />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>Number of Acres</FormLabel>
@@ -67,7 +112,7 @@ const AddProperty: FC = () => {
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>Image URL</FormLabel>
-                        <Input state={[image, setImage]} />
+                        <Input value={image} onChange={(val) => setImage(val.target.value)} />
                         {image && (
                             <Image
                                 objectFit="cover"
@@ -93,31 +138,33 @@ const AddProperty: FC = () => {
                 <VStack w="100%">
                     <FormControl isRequired>
                         <FormLabel>Address</FormLabel>
-                        <Input state={[address, setAddress]} />
+                        <Input value={address} onChange={(val) => setAddress(val.target.value)} />
                     </FormControl>
                     <FormControl>
                         <FormLabel>Apartment, suite, etc.</FormLabel>
-                        <Input state={[apt, setApt]} />
+                        <Input value={apt} onChange={(val) => setApt(val.target.value)} />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>City</FormLabel>
-                        <Input state={[city, setCity]} />
+                        <Input value={city} onChange={(val) => setCity(val.target.value)} />
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>State</FormLabel>
                         <Select value={state} onChange={(val) => setState(val.target.value)} placeholder="-">
                             {stateLabelValues.map((val) => (
-                                <option value={val.label}>{val.label}</option>
+                                <option key={val.value} value={val.label}>
+                                    {val.label}
+                                </option>
                             ))}
                         </Select>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>ZIP Code</FormLabel>
-                        <Input state={[zip, setZip]} />
+                        <Input value={zip} onChange={(val) => setZip(val.target.value)} />
                     </FormControl>
                 </VStack>
             </Stack>
-            <Button type="submit" onClick={onSubmit} colorScheme="green" my={4}>
+            <Button isLoading={isLoading} type="submit" onClick={onSubmit} colorScheme="green" my={4}>
                 Add Listing
             </Button>
         </Layout>
