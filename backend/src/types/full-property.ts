@@ -8,4 +8,5 @@ export type FullProperty = {
     imgUrl: string;
     name: string;
     description: string;
+    reservationtype: string[];
 };

@@ -14,7 +14,7 @@ export const validateParameters = (params: ParamProps): FullProperty => {
         throw new Error('No query parameters were specified');
     }
 
-    const { size, streetAddr, city, zip, state, pricePerDay, imgUrl, name, description } = params;
+    const { name, size, streetAddr, city, zip, state, pricePerDay, imgUrl, description, reservationtype } = params;
 
     if (!size) {
         throw new Error('No size was specified');
@@ -52,6 +52,10 @@ export const validateParameters = (params: ParamProps): FullProperty => {
         throw new Error('No description was specified');
     }
 
+    if (!reservationtype) {
+        throw new Error('No reservation type was specified');
+    }
+
     return {
         size: Number(size),
         streetAddr,
@@ -62,6 +66,7 @@ export const validateParameters = (params: ParamProps): FullProperty => {
         imgUrl,
         name,
         description,
+        reservationtype: (reservationtype as unknown) as string[],
     };
 };
 
