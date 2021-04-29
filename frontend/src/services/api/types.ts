@@ -32,10 +32,11 @@ export type AddPropertyReq = {
     pricePerDay: number;
     imgUrl: string;
     name: string;
+    reservationtype: string[];
     description: string;
 };
 
 export type GetAllPropertiesRequest = {
-    startTime: Date;
-    endTime: Date;
+    startTime?: Date | 'none';
+    endTime?: Date | 'none';
 };

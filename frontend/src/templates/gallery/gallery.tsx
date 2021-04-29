@@ -17,11 +17,13 @@ const Gallery: FC = () => {
 
     useEffect(() => {
         getAllProperties({
-            startTime: new Date('1/1/1969'),
-            endTime: new Date('1/1/1969'),
+            startTime: 'none',
+            endTime: 'none',
         }).then((res) => {
             if (res.wasSuccessful) {
                 setProperties(res.body);
+            } else {
+                console.log(res);
             }
         });
     }, []);

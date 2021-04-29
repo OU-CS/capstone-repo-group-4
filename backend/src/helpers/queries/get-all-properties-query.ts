@@ -5,7 +5,7 @@ export type Property = {
     name: string;
 };
 
-export const getAllPropertiesQuery = async (startTime: string, endTime: string): Promise<Property[]> =>
+export const getAllPropertiesInRangeQuery = async (startTime: string, endTime: string): Promise<Property[]> =>
     databaseQuery<Property>(`
         SELECT p.propertyid, p.size, p.streetaddr, p.city, p.state, p.zip, p.imgurl, p.pricePerDay, p.name, p.description, p.reservationType, u.userid, u.firstname, u.lastname, u.email, u.phonenumber FROM property as p
         INNER JOIN host as h
@@ -16,4 +16,9 @@ export const getAllPropertiesQuery = async (startTime: string, endTime: string):
                     WHERE ('${startTime}' <  startdate AND '${endTime}' < startdate)
                     OR ('${startTime}' > enddate AND '${endTime}' > enddate)
                     ) UNION (SELECT propertyid from property WHERE propertyid NOT IN (SELECT propertyid from lease)));
+`);
+
+export const getAllPropertiesQuery = async (): Promise<Property[]> =>
+    databaseQuery<Property>(`
+        SELECT * FROM property
 `);

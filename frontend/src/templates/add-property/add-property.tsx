@@ -2,9 +2,12 @@ import {
     Alert,
     AlertIcon,
     Button,
+    Checkbox,
+    CheckboxGroup,
     FormControl,
     FormLabel,
     Heading,
+    HStack,
     Image,
     Input,
     InputGroup,
@@ -34,6 +37,7 @@ const AddProperty: FC = () => {
     const [size, setSize] = useState('');
     const [image, setImage] = useState('');
     const [price, setPrice] = useState('');
+    const [activities, setActivities] = useState([]);
     const [address, setAddress] = useState('');
     const [apt, setApt] = useState('');
     const [city, setCity] = useState('');
@@ -58,9 +62,10 @@ const AddProperty: FC = () => {
             size: Number(size),
             imgUrl: image,
             pricePerDay: Number(price),
-            streetAddr: `${address} ${apt}`,
+            streetAddr: `${address}${apt ? ` ${apt}` : ''}`,
             city,
             state,
+            reservationtype: activities,
             zip,
         });
         if (res.wasSuccessful) {
@@ -100,6 +105,16 @@ const AddProperty: FC = () => {
                             onChange={(val) => setDescription(val.target.value)}
                             placeholder="Tell us about your property"
                         />
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>Activities</FormLabel>
+                        <CheckboxGroup value={activities} onChange={(val) => setActivities(val)}>
+                            <HStack>
+                                <Checkbox value="Fishing">Fishing</Checkbox>
+                                <Checkbox value="Camping">Camping</Checkbox>
+                                <Checkbox value="Hunting">Hunting</Checkbox>
+                            </HStack>
+                        </CheckboxGroup>
                     </FormControl>
                     <FormControl isRequired>
                         <FormLabel>Number of Acres</FormLabel>
@@ -164,7 +179,7 @@ const AddProperty: FC = () => {
                     </FormControl>
                 </VStack>
             </Stack>
-            <Button isLoading={isLoading} type="submit" onClick={onSubmit} colorScheme="green" my={4}>
+            <Button isLoading={isLoading} type="submit" onClick={onSubmit} colorScheme="blue" my={4}>
                 Add Listing
             </Button>
         </Layout>
