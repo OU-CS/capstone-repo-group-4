@@ -5,7 +5,7 @@ import { databaseQuery } from '../db-connector';
 
 export const addNewPropertyQuery = async (property: FullProperty): Promise<PropertyId[]> =>
     databaseQuery<PropertyId>(`
-        INSERT INTO property (propertyId, size, streetAddr, city, state, zip, imgUrl, pricePerDay, name, description)
-        VALUES (uuid_generate_v4(), ${property.size}, ${property.streetAddr}, ${property.city}, ${property.state}, ${property.zip}, ${property.imgUrl}, ${property.pricePerDay}, ${property.name}, ${property.description})
+        INSERT INTO property (propertyId, size, streetAddr, city, state, zip, imgUrl, pricePerDay, name, description, reservationtype)
+        VALUES (uuid_generate_v4(), ${property.size}, ${property.streetAddr}, ${property.city}, ${property.state}, ${property.zip}, ${property.imgUrl}, ${property.pricePerDay}, ${property.name}, ${property.description}, ${property.reservationtype})
         RETURNING propertyId;
 `);

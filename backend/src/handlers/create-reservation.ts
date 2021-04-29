@@ -8,9 +8,9 @@ export type CreateReservationPropertyBody = {
     startTime: string;
     endTime: string;
     price: number;
-    propertyID: string;
-    guestID: string;
-    hostID: string;
+    propertyId: string;
+    guestId: string;
+    hostId: string;
 };
 
 /**
@@ -21,7 +21,7 @@ export const validateParameters = (params: ParamProps): CreateReservationPropert
         throw new Error('No query parameters were specified');
     }
 
-    const { startTime, endTime, price, propertyID, guestID, hostID } = params;
+    const { startTime, endTime, price, propertyId, guestId, hostId } = params;
 
     if (!startTime) {
         throw new Error('No startTime was specified');
@@ -32,16 +32,16 @@ export const validateParameters = (params: ParamProps): CreateReservationPropert
     if (!price) {
         throw new Error('No price was specified');
     }
-    if (!propertyID) {
+    if (!propertyId) {
         throw new Error('No propertyID was specified');
     }
-    if (!guestID) {
+    if (!guestId) {
         throw new Error('No guestID was specified');
     }
-    if (!hostID) {
+    if (!hostId) {
         throw new Error('No hostID was specified');
     }
-    return { startTime, endTime, price: Number(price), propertyID, guestID, hostID };
+    return { startTime, endTime, price: Number(price), propertyId, guestId, hostId };
 };
 
 /**
@@ -52,13 +52,13 @@ export const createReservation: APIGatewayProxyHandler = async (event) => {
     let startTime: string;
     let endTime: string;
     let price: number;
-    let propertyID: string;
-    let guestID: string;
-    let hostID: string;
+    let propertyId: string;
+    let guestId: string;
+    let hostId: string;
 
     // Validate query parameters
     try {
-        ({ startTime, endTime, price, propertyID, guestID, hostID } = validateParameters(JSON.parse(event.body)));
+        ({ startTime, endTime, price, propertyId, guestId, hostId } = validateParameters(JSON.parse(event.body)));
     } catch (e) {
         console.error(e);
         return failedResponse(400, e);
@@ -67,7 +67,7 @@ export const createReservation: APIGatewayProxyHandler = async (event) => {
     try {
         // Generates a SQL statement for returning all the properties from the database
         // return data from the SQL statement are saved in sqlResponse
-        const sqlResponse = await createReservationQuery(startTime, endTime, price, propertyID, guestID, hostID);
+        const sqlResponse = await createReservationQuery(startTime, endTime, price, propertyId, guestId, hostId);
 
         console.info('success:', sqlResponse);
         return successResponse(sqlResponse);
