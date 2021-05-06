@@ -8,7 +8,7 @@ type DescriptionProps = {
 };
 
 export const Description: FC<DescriptionProps> = ({ property, children }) => (
-    <VStack align="flex-start">
+    <VStack align="flex-start" w="100%">
         <Heading size="md">Description</Heading>
         {children
             .toString()
